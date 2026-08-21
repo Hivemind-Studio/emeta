@@ -40,7 +40,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         style={{ left: 252, top: 4497 - 5120, width: 1599, height: 1599 }}
         aria-hidden="true"
       >
-        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100" sizes="1599px" />
+        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100 blur-[26px]" sizes="1599px" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1128px] px-6 md:px-0">

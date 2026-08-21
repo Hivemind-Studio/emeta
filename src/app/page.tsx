@@ -49,7 +49,7 @@ export default async function HomePage() {
             <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="1820px" />
           </div>
           <div className="pointer-events-none absolute" style={{ left: 378, top: 167, width: 1416, height: 1416 }} aria-hidden="true">
-            <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-45" sizes="1416px" />
+            <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-50 blur-[40px]" sizes="1416px" />
           </div>
           <div className={`${CTN} relative z-10`}>
             <div className="pt-[384px]">
@@ -147,7 +147,7 @@ export default async function HomePage() {
             </p>
             <div className="mt-[68px] flex justify-between">
               {posts.map((p) => (
-                <Link key={p.id} href={`/blog/${p.slug}`} className="group w-[269px]">
+                <Link key={p.id} href={`/blog/${p.slug}`} className="group w-[269px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
                   <div className="relative h-[206px] w-[269px] overflow-hidden bg-[#b3b3b3]">
                     {p.imageUrl ? (
                       <Image src={buildAssetUrl(p.imageUrl)} alt={p.title} fill className="object-cover" sizes="269px" />
@@ -157,16 +157,23 @@ export default async function HomePage() {
                       </div>
                     )}
                   </div>
-                  <h3 className="mt-[8px] text-[20px] font-bold leading-snug text-ink-soft">{p.title}</h3>
-                  <p className="line-clamp-2 text-[16px] leading-[1.4] text-ink-soft">{p.excerpt}</p>
-                  <p className="mt-[4px] text-[16px] font-bold text-brand">Read More</p>
+                  <div className="p-[12px]">
+                    <h3 className="text-[20px] font-bold leading-snug text-ink-soft">{p.title}</h3>
+                    <p className="line-clamp-2 text-[16px] leading-[1.4] text-ink-soft">{p.excerpt}</p>
+                    <p className="mt-[4px] text-[16px] font-bold text-brand">Read More</p>
+                  </div>
                 </Link>
               ))}
               {/* More card */}
-              <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden bg-brand self-start">
-                <span className="absolute -right-10 -top-10 h-[209px] w-[209px] rounded-full bg-brand-light" aria-hidden="true" />
-                <span className="text-[20px] font-bold text-paper">Find More</span>
-                <span className="text-[16px] font-bold text-brand-light">Here</span>
+              <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)] self-start">
+                {/* blurry blue circle bg — top-right behind text (Figma 41:1560, LAYER_BLUR 100) */}
+                <span
+                  className="absolute h-[209px] w-[209px] rounded-full bg-brand-light blur-[50px]"
+                  style={{ left: 1168 - 1037, top: 3077 - 3025 }}
+                  aria-hidden="true"
+                />
+                <span className="relative text-[20px] font-bold leading-none text-paper">Find More</span>
+                <span className="relative mt-[4px] text-[16px] font-bold leading-none text-brand-light">Here</span>
               </Link>
             </div>
           </div>
@@ -189,9 +196,9 @@ export default async function HomePage() {
                           Book a Demo
                         </button>
                       </div>
-                      {/* large white icon watermark (Figma 20:1439, 411x411 at right) */}
-                      <div className="relative z-10 h-[411px] w-[411px] shrink-0 opacity-90" aria-hidden="true">
-                        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain" sizes="411px" />
+                      {/* large white icon watermark (Figma 20:1439, 411x411 at right, blur+opacity.32) */}
+                      <div className="relative z-10 h-[411px] w-[411px] shrink-0 opacity-30" aria-hidden="true">
+                        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
                       </div>
                     </div>
                   </div>
