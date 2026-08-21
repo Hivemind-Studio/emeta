@@ -68,9 +68,9 @@ export default async function HomePage() {
               </p>
               <form className="mt-[27px] flex" action="/#contact">
                 <input type="email" placeholder="Email" name="email"
-                  className="h-[48px] w-[360px] border-none bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite" />
+                  className="h-[48px] w-[360px] rounded-l-[8px] border-none bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite" />
                 <button type="submit"
-                  className="inline-flex h-[47px] w-[154px] items-center justify-center bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee]">
+                  className="inline-flex h-[47px] w-[154px] items-center justify-center rounded-r-[8px] bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee]">
                   Get in Touch
                 </button>
               </form>
@@ -188,7 +188,7 @@ export default async function HomePage() {
         {/* ===== CTA (20:1431, 3584..4096) ===== */}
                 <section className="h-[512px] bg-paper pt-[90px]">
                   <div className={`${CTN}`}>
-                    <div className="relative flex h-[332px] items-center justify-between overflow-hidden bg-brand">
+                    <div className="relative flex h-[332px] items-center justify-between overflow-hidden rounded-2xl bg-brand">
                       {/* Decorative layer — clipped to the CTA box */}
                       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
                         {/* CTA blob artwork (Figma 20:1433, 1294x920) — relative to CTA box */}
@@ -206,7 +206,7 @@ export default async function HomePage() {
                           Ready to Transform Your <span className="whitespace-nowrap">Business?</span>
                         </h2>
                         <p className="mt-[10px] font-inter text-[18px] text-paper">Here For you</p>
-                        <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center bg-white font-inter text-[15px] font-semibold text-brand">
+                        <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
                           Book a Demo
                         </button>
                       </div>
@@ -234,23 +234,23 @@ export default async function HomePage() {
                   <Image src={brandUrl("contactMap")} alt="" fill className="object-cover" sizes="492px" />
                 </div>
               </div>
-              <div className="w-[572px] bg-brand-soft px-[40px] py-[40px]">
+              <div className="w-[572px] rounded-[20px] bg-brand-soft px-[40px] py-[40px]">
                 <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-                <form className="mt-[28px] space-y-[24px]">
+                <form className="mt-[28px] space-y-[16px]">
                   {(["Name", "Email", "Message"] as const).map((label) => (
                     <div key={label}>
                       <label className="text-[14px] font-semibold text-graphite">{label}</label>
                       {label === "Message" ? (
                         <textarea placeholder="Describe your requirements..." rows={3}
-                          className="mt-[6px] h-[100px] w-full border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
+                          className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       ) : (
                         <input type={label === "Email" ? "email" : "text"}
                           placeholder={label === "Name" ? "Your name" : "your@email.com"}
-                          className="mt-[6px] h-[48px] w-full border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
+                          className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       )}
                     </div>
                   ))}
-                  <button className="inline-flex h-[48px] w-[168px] items-center justify-center bg-brand text-[16px] font-semibold text-white">
+                  <button className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
                     Submit Inquiry
                   </button>
                 </form>

@@ -59,7 +59,7 @@ export function Header({
         </nav>
         <a
           href="/#contact"
-          className={`inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-base font-semibold ${
+          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] text-[16px] font-semibold ${
             dark ? "bg-brand text-paper hover:bg-[#1450b5]" : "bg-brand text-white hover:bg-[#1450b5]"
           }`}
         >
@@ -101,7 +101,7 @@ export function Header({
               </li>
             ))}
             <li>
-              <Link href="/#contact" onClick={() => setOpen(false)} className="btn-brand px-5 py-3 text-sm">
+              <Link href="/#contact" onClick={() => setOpen(false)} className="inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand text-sm font-semibold text-white">
                 Get in Touch
               </Link>
             </li>

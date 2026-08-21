@@ -48,7 +48,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           Empowering businesses across Indonesia by distributing high-performance AI
           technologies and optimized cloud software.
         </p>
-        <div className="mt-[64px] flex gap-[80px]">
+        <div className="mt-[44px] flex gap-[80px]">
           {COLUMNS.map((col) => (
             <div key={col.title}>
               <h4 className="text-[20px] font-semibold text-white">{col.title}</h4>
@@ -64,7 +64,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             </div>
           ))}
         </div>
-        <div className="mt-[54px]">
+        <div className="mt-[36px]">
           <p className="text-[20px] font-semibold text-white">Keep in Touch</p>
           <div className="mt-[15px] flex gap-[12px]">
             {socials.map((s) => (

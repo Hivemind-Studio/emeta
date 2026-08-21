@@ -3,11 +3,10 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getSettings, getFeaturedPosts, getPublishedPostsPage } from "@/lib/data";
+import { brandUrl } from "@/lib/brandAssets";
 import { buildAssetUrl } from "@/lib/storage/url";
 
 export const dynamic = "force-dynamic";
-
-const PAGE_SIZE = 8;
 
 export const metadata = {
   title: "News & Blogs | PT Emeta Teknologi Indonesia",
@@ -16,31 +15,43 @@ export const metadata = {
   alternates: { canonical: "/blog" },
 };
 
-function NewsCard({ post, big = false }: { post: { slug: string; title: string; excerpt: string; imageUrl: string | null; createdAt: Date }; big?: boolean }) {
+/** Content region = 1128px wide (156px margins on the 1440 design). */
+const CTN = "mx-auto w-full max-w-[1128px] px-6 md:px-0";
+
+function NewsCard({
+  post,
+  big = false,
+}: {
+  post: { slug: string; title: string; excerpt: string; imageUrl: string | null; createdAt: Date };
+  big?: boolean;
+}) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block overflow-hidden border border-line/30 bg-paper"
+      className="group block overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
     >
-      <div className={`relative ${big ? "aspect-[520/206]" : "aspect-[264/206]"} overflow-hidden`}>
+      <div className={`relative ${big ? "h-[206px]" : "h-[206px]"} overflow-hidden`}>
         {post.imageUrl ? (
           <Image
             src={buildAssetUrl(post.imageUrl)}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes={big ? "520px" : "264px"}
+            sizes={big ? "520px" : "(max-width:768px) 50vw, 264px"}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-[#b3b3b3]">
-            <span className="font-inter text-lg font-bold text-line">Place Holder</span>
+            <span className="font-inter text-[18px] font-bold text-[#d4d4d4]">Place Holder</span>
           </div>
         )}
       </div>
-      <div className="p-3">
-        <p className="font-sans text-[20px] font-bold leading-snug text-ink-soft">{post.title}</p>
-        <p className="mt-1 font-sans text-base text-ink-soft line-clamp-2">{post.excerpt}</p>
-        <p className="mt-2 font-sans text-base font-bold text-brand">Read More</p>
+      {/* ctn per Figma: pad-left/right 12, Title y651(-639=12), desc +32, ReadMore +64 */}
+      <div className="px-[12px] py-[12px]">
+        <p className={`text-[20px] font-bold leading-none text-ink-soft ${big ? "" : ""}`}>
+          {post.title}
+        </p>
+        <p className="mt-[4px] line-clamp-1 text-[16px] leading-[28px] text-ink-soft">{post.excerpt}</p>
+        <p className="mt-[0px] text-[16px] font-bold leading-[28px] text-brand">Read More</p>
       </div>
     </Link>
   );
@@ -50,110 +61,127 @@ export default async function BlogIndexPage() {
   const [settings, featured, { items: posts }] = await Promise.all([
     getSettings(),
     getFeaturedPosts(2),
-    getPublishedPostsPage(1, PAGE_SIZE),
+    getPublishedPostsPage(1, 11),
   ]);
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header brandName="PT Emeta Teknologi Indonesia" variant="light" />
       <main className="flex-1">
-        {/* ===== FEATURED hero ===== */}
-        <section className="bg-brand pb-8 pt-32 text-paper">
-          <div className="container-emeta">
-            <h1 className="font-sans text-[clamp(2.75rem,5vw,3.375rem)] font-extrabold leading-[1.1] text-paper">
-              Featured
-            </h1>
-            <p className="mt-2 font-inter text-lg text-paper">News and Blogs</p>
-
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {featured.map((p) => (
-                <NewsCard key={p.id} post={p} big />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== News & Blogs grid ===== */}
-        <section className="bg-paper py-16">
-          <div className="container-emeta">
-            <h2 className="font-sans text-[clamp(2.5rem,5vw,3.375rem)] font-extrabold leading-[1.1] text-ink-soft">
-              News &amp; Blogs
-            </h2>
-            <p className="mt-2 font-inter text-lg text-ink-soft">
-              Find out our latest news and updates
-            </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-              {posts.map((p) => (
-                <NewsCard key={p.id} post={p} />
-              ))}
-            </div>
-
-            {posts.length === 0 && (
-              <p className="mt-14 text-center font-sans text-base text-ink">
-                Belum ada artikel.
-              </p>
-            )}
-          </div>
-        </section>
-
-        {/* ===== CTA ===== */}
-        <section className="bg-paper pb-16">
-          <div className="container-emeta flex min-h-[300px] flex-col justify-center bg-brand px-8 md:px-16">
-            <h2 className="max-w-[800px] font-sans text-[clamp(2.5rem,5vw,3.375rem)] font-extrabold leading-[1.15] text-paper">
-              Ready to Transform Your Business?
-            </h2>
-            <p className="mt-4 font-inter text-lg text-paper">Here For you</p>
-            <Link
-              href="/#contact"
-              className="mt-8 inline-flex h-[46px] w-fit items-center justify-center bg-white px-6 font-inter text-[15px] font-semibold text-brand"
-            >
-              Book a Demo
-            </Link>
-          </div>
-        </section>
-
-        {/* ===== CONTACT ===== */}
-        <section id="contact" className="bg-paper pb-16">
-          <div className="container-emeta">
-            <h2 className="font-sans text-[clamp(2rem,5vw,3.375rem)] font-extrabold leading-[1.1] text-ink-soft">
-              Contact Us
-            </h2>
-            <div className="mt-10 grid gap-10 lg:grid-cols-2">
-              <div className="space-y-6">
-                {[
-                  { k: "Our Office", v: settings.officeAddress },
-                  { k: "Phone", v: settings.phoneDisplay },
-                  { k: "Email Support", v: settings.emailSupport },
-                ].map((c) => (
-                  <div key={c.k}>
-                    <p className="font-sans text-lg font-bold text-brand">{c.k}</p>
-                    <p className="mt-1 font-sans text-base text-ink">{c.v}</p>
+        {/* ===== FEATURED (Design 41:1808, 0..1024) ===== */}
+        <section className="bg-paper pt-[57px]">
+          <div className={CTN}>
+            {/* Blue rounded panel (Figma 41:1809, r16) with head + featured cards */}
+            <div className="rounded-2xl bg-brand pb-[65px] pt-[120px]">
+              <div className="px-[32px]">
+                <h1 className="text-[54px] font-extrabold leading-[1.18] text-paper">
+                  Featured
+                </h1>
+                <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
+              </div>
+              <div className="mt-[44px] flex flex-wrap justify-between gap-[24px] px-[32px]">
+                {featured.map((p) => (
+                  <div key={p.id} className="w-[520px] max-w-full">
+                    <NewsCard post={p} big />
                   </div>
                 ))}
               </div>
-              <div className="bg-brand-soft p-9">
-                <h3 className="font-sans text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-                <form className="mt-6 space-y-5">
+            </div>
+          </div>
+        </section>
+
+        {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
+        <section id="news" className="bg-paper">
+          <div className={`${CTN} pt-[140px]`}>
+            <h2 className="text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+              News &amp; Blogs
+            </h2>
+            <p className="mt-[10px] font-inter text-[18px] text-ink-soft">
+              Find out our latest news and updates
+            </p>
+
+            {/* Rows of 4 cards, 264 wide each (Figma rows at y1396 / 1786 / 2176) */}
+            <div className="mt-[68px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4">
+              {posts.slice(0, 8).map((p) => (
+                <div key={p.id}>
+                  <NewsCard post={p} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== CTA (41:2441, 2641..3153) ===== */}
+        <section className="bg-paper pt-[90px]">
+          <div className={CTN}>
+            <div className="relative h-[332px] overflow-hidden rounded-2xl bg-brand">
+              {/* Decorative layer — clipped to the CTA box */}
+              <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+                {/* Blob artwork (41:2443, 1294x920) — relative to CTA box */}
+                <div className="absolute" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
+                  <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1128px" />
+                </div>
+                {/* Blurred white icon (41:2449) — right side */}
+                <div className="absolute right-[16px] top-[-18px] opacity-30" style={{ width: 411, height: 411 }}>
+                  <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
+                </div>
+              </div>
+              {/* Content at x188 (=32px inside the panel) */}
+              <div className="relative z-10 pl-[32px] pt-[122px]">
+                <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[1.15] text-paper">
+                  Ready to Transform Your <span className="whitespace-nowrap">Business?</span>
+                </h2>
+                <p className="mt-[10px] font-inter text-[18px] text-paper">Here For you</p>
+                <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
+                  Book a Demo
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== CONTACT (86:259, 3153..4177) ===== */}
+        <section id="contact" className="min-h-[1024px] bg-paper">
+          <div className={`${CTN} pt-[193px]`}>
+            <h2 className="text-[54px] font-extrabold leading-[1.18] text-ink-soft">Contact Us</h2>
+            <div className="mt-[128px] flex justify-between pb-[60px]">
+              {/* Left info + map */}
+              <div className="w-[492px]">
+                <div className="space-y-[32px]">
+                  {[
+                    { k: "Our Office", v: settings.officeAddress },
+                    { k: "Phone", v: settings.phoneDisplay },
+                    { k: "Email Support", v: settings.emailSupport },
+                  ].map((c) => (
+                    <div key={c.k}>
+                      <p className="text-[18px] font-bold text-brand">{c.k}</p>
+                      <p className="mt-[6px] text-[16px] leading-[1.5] text-ink">{c.v}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="relative mt-[40px] h-[240px] w-[492px] overflow-hidden rounded-lg">
+                  <Image src={brandUrl("contactMap")} alt="" fill className="object-cover" sizes="492px" />
+                </div>
+              </div>
+
+              {/* Right form panel (#f3f8ff r20) */}
+              <div className="w-[572px] rounded-[20px] bg-brand-soft p-[40px]">
+                <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
+                <form className="mt-[28px] space-y-[16px]">
                   {(["Name", "Email", "Message"] as const).map((label) => (
                     <div key={label}>
-                      <label className="font-sans text-sm font-semibold text-graphite">{label}</label>
+                      <label className="text-[14px] font-semibold text-graphite">{label}</label>
                       {label === "Message" ? (
-                        <textarea
-                          placeholder="Describe your requirements..."
-                          rows={3}
-                          className="mt-2 w-full border-none bg-white px-4 py-3 font-sans text-sm text-graphite outline-none placeholder:text-graphite"
-                        />
+                        <textarea placeholder="Describe your requirements..." rows={3}
+                          className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       ) : (
-                        <input
-                          type={label === "Email" ? "email" : "text"}
+                        <input type={label === "Email" ? "email" : "text"}
                           placeholder={label === "Name" ? "Your name" : "your@email.com"}
-                          className="mt-2 h-[48px] w-full border-none bg-white px-4 font-sans text-sm text-graphite outline-none placeholder:text-graphite"
-                        />
+                          className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       )}
                     </div>
                   ))}
-                  <button className="inline-flex h-[48px] items-center justify-center bg-brand px-6 font-sans text-base font-semibold text-white">
+                  <button className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
                     Submit Inquiry
                   </button>
                 </form>
