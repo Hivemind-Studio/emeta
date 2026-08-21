@@ -36,10 +36,11 @@ export function Footer({ settings }: { settings: SiteSettings }) {
     <footer className="relative h-[1024px] overflow-hidden bg-brand text-white">
       {/* Decorative layer — clipped to the footer box; nothing paints outside */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Blurred white Emeta icon — relative to the footer container
-            (Figma x252/1440=17.5%, y4497 → -623px from footer top, 1599px square) */}
-        <div className="absolute" style={{ left: "17.5%", top: -623, width: "111%", aspectRatio: "1 / 1" }}>
-          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100 blur-[26px]" sizes="1599px" />
+        {/* Blurred white Emeta icon — anchored right, sized so the visible
+            emblem never reaches the text column (text ends at ~x694 of 1440).
+            Box: left 45% (x648), width 85% (1224px) → visible emblem ≈ x807+. */}
+        <div className="absolute" style={{ left: "45%", top: -420, width: "85%", aspectRatio: "1 / 1" }}>
+          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-60 blur-[26px]" sizes="1224px" />
         </div>
       </div>
 
