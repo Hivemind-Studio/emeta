@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Central contact/branding settings (singleton row)
+model GlobalSettings {
+  id            Int     @id @default(1)
+  brandName     String  @default("PT Emeta Teknologi Indonesia")
+  phoneDisplay  String  @default("+6280000005557")
+  emailSupport  String  @default("info@emeta.co.id")
+  officeAddress String  @default("Ruko WTC Matahari No. 921, Jl. Raya Serpong, Kota Tangerang Selatan, Banten, 15326")
+  linkedinUrl   String  @default("https://linkedin.com")
+  facebookUrl   String  @default("https://facebook.com")
+  twitterUrl    String  @default("https://twitter.com")
+  youtubeUrl    String  @default("https://youtube.com")
+  foundedYear   String  @default("2024")
+  heroTitle     String  @default("The Best Click Bait In The World")
+  heroBody      String  @default("Bridging world-class AI and enterprise software with growing organizations and established enterprises across Indonesia.")
+  aboutTitle    String  @default("PT Emeta Teknologi Indonesia")
+  aboutBody     String  @default("Founded in (YEAR) to bridge the gap between world-class artificial intelligence (AI) and both growing organizations and established enterprises.")
+  copyright     String  @default("© 2026 PT Emeta Teknologi Indonesia. All rights reserved.")
+  heroImageUrl  String? // key of hero background image uploaded via CDN
+  logoWhiteUrl  String?
+  logoBlueUrl   String?
+  contactMapUrl String?
+  updatedAt     DateTime @updatedAt
+}
+
+// Company products (WrenAI, BarkingDog, AI Amaze, Phison)
+model Product {
+  id        String  @id @default(cuid())
+  title     String
+  tags      String  @default("") // comma-separated short tags e.g. "Data,AI,For Business"
+  description String
+  iconUrl   String? // icon image key (CDN)
+  learnMoreUrl String @default("")
+  sortOrder Int     @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// News & blog posts
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  excerpt   String
+  content   String   @default("")
+  imageUrl  String?
+  published Boolean  @default(true)
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, createdAt])
+}

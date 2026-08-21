@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.env
+.env.*
+!.env.example
+public/uploads
+public/.gitkeep
+npm-debug.log*
+*.tsbuildinfo
+verify-tmp.ts
+scripts/assets
+everest_db_url.txt

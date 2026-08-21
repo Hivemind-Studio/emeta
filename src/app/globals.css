@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Emeta brand palette (Design page) */
+  --color-brand: #1a60d9;       /* primary blue */
+  --color-brand-light: #8bbffc; /* light blue */
+  --color-brand-soft: #f3f8ff;  /* soft form bg */
+  --color-navy-emeta: #0c1e43;  /* form heading */
+  --color-ink: #1f2937;         /* secondary text */
+  --color-ink-soft: #2b2b2b;    /* headings */
+  --color-paper: #fafafa;
+  --color-mist: #b3b3b3;        /* nav inactive */
+  --color-graphite: #4b5563;    /* labels */
+  --color-line: #d4d4d4;        /* placeholder */
+  --color-line-soft: #e5e7eb;
+  --color-navy: #1a60d9;
+
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-inter: var(--font-inter-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-sora: var(--font-sora-ui), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: clip;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .container-emeta {
+    @apply mx-auto w-full max-w-[1200px] px-6 md:px-10;
+  }
+  .container-everest {
+    @apply mx-auto w-full max-w-[1200px] px-6 md:px-10;
+  }
+  .font-display {
+    font-family: var(--font-sans);
+  }
+  .eyebrow {
+    @apply font-sans text-sm font-bold uppercase tracking-[0.2em] text-brand;
+  }
+  .section-heading {
+    @apply font-sans font-extrabold leading-[1.1] text-ink-soft;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-semibold transition-colors;
+  }
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 bg-brand font-sans font-semibold text-white transition-colors hover:bg-[#1450b5];
+  }
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 bg-brand font-sans font-semibold text-white transition-colors hover:bg-[#1450b5];
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-2 font-sans font-semibold text-brand;
+  }
+  .rounded-card {
+    @apply overflow-hidden rounded-xl;
+  }
+}
