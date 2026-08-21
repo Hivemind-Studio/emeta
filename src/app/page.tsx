@@ -47,8 +47,10 @@ export default async function HomePage() {
         <section className="relative h-[1024px] overflow-hidden bg-[#fafafa]">
           {/* Decorative layer — everything inside is clipped by the hero box */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div className="absolute inset-y-0 left-[-190px] w-[1820px]">
-              <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="1820px" />
+            {/* Background bleeds past BOTH edges proportionally (-13.2% / 126.4% = Figma -190px/1820px
+                at 1440) so it always covers the full section on any viewport width */}
+            <div className="absolute inset-y-0" style={{ left: "-13.2%", width: "126.4%" }}>
+              <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="100vw" />
             </div>
             {/* Blurred white Emeta icon — relative to the hero container
                 (26.25% left, 16.3% top, 98.3% wide = Figma 378/167/1416 in a 1440 frame) */}
