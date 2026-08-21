@@ -102,7 +102,9 @@ export default async function HomePage() {
         <section id="products" className="h-[1024px] bg-paper">
           <div className={`${CTN}`}>
             <div className="flex flex-col items-center pt-[267px] text-center">
-              <p className="text-[14px] font-semibold uppercase tracking-[0.2em] text-brand">Offerings</p>
+              <span className="inline-flex h-[30px] items-center rounded-full bg-[#e7edf7] px-[16px] text-[14px] font-semibold uppercase tracking-[0.2em] text-brand">
+                Offerings
+              </span>
               <h2 className="mt-[24px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
                 Product &amp; Solutions
               </h2>
@@ -112,9 +114,9 @@ export default async function HomePage() {
             </div>
             <div className="mt-[32px] flex justify-between">
               {products.map((p) => (
-                <article key={p.id} className="flex h-[319px] w-[360px] flex-col bg-paper">
+                <article key={p.id} className="flex h-[319px] w-[360px] flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)]">
                   <div className="flex h-[64px] shrink-0 items-center gap-3 bg-brand px-4">
-                    <div className="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-paper">
+                    <div className="flex h-[48px] w-[48px] items-center justify-center rounded-[6px] bg-paper">
                       {p.iconUrl && <Image src={buildAssetUrl(p.iconUrl)} alt="" width={28} height={28} className="object-contain" />}
                     </div>
                     <h3 className="text-[20px] font-bold leading-none text-paper">{p.title}</h3>
