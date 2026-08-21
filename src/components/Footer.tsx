@@ -34,14 +34,13 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   // Footer at 1440x1024; content column anchored at left x156.
   return (
     <footer className="relative h-[1024px] overflow-hidden bg-brand text-white">
-      {/* Large white Emeta icon watermark — positioned relative to this section
-          (Figma root x252, y4497; footer section begins at page-y 5120, so top=-623) */}
-      <div
-        className="pointer-events-none absolute"
-        style={{ left: "15.75%", top: -623, width: 1599, height: 1599 }}
-        aria-hidden="true"
-      >
-        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100 blur-[26px]" sizes="1599px" />
+      {/* Decorative layer — clipped to the footer box; nothing paints outside */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* Blurred white Emeta icon — relative to the footer container
+            (Figma x252/1440=17.5%, y4497 → -623px from footer top, 1599px square) */}
+        <div className="absolute" style={{ left: "17.5%", top: -623, width: "111%", aspectRatio: "1 / 1" }}>
+          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100 blur-[26px]" sizes="1599px" />
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1128px] px-6 md:px-0">

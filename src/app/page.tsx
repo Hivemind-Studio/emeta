@@ -45,11 +45,16 @@ export default async function HomePage() {
       <main className="flex-1">
         {/* ===== HERO (Design 20:1383, 0..1024) ===== */}
         <section className="relative h-[1024px] overflow-hidden bg-[#fafafa]">
-          <div className="absolute inset-y-0 left-[-190px] w-[1820px]" aria-hidden="true">
-            <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="1820px" />
-          </div>
-          <div className="pointer-events-none absolute" style={{ left: 378, top: 167, width: 1416, height: 1416 }} aria-hidden="true">
-            <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-50 blur-[40px]" sizes="1416px" />
+          {/* Decorative layer — everything inside is clipped by the hero box */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+            <div className="absolute inset-y-0 left-[-190px] w-[1820px]">
+              <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="1820px" />
+            </div>
+            {/* Blurred white Emeta icon — relative to the hero container
+                (26.25% left, 16.3% top, 98.3% wide = Figma 378/167/1416 in a 1440 frame) */}
+            <div className="absolute" style={{ left: "26.25%", top: "16.31%", width: "98.33%", aspectRatio: "1 / 1" }}>
+              <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-50 blur-[40px]" sizes="1416px" />
+            </div>
           </div>
           <div className={`${CTN} relative z-10`}>
             <div className="pt-[384px]">
@@ -182,9 +187,16 @@ export default async function HomePage() {
                 <section className="h-[512px] bg-paper pt-[90px]">
                   <div className={`${CTN}`}>
                     <div className="relative flex h-[332px] items-center justify-between overflow-hidden bg-brand">
-                      {/* CTA blob artwork (Figma 20:1433, 1294x920) */}
-                      <div className="pointer-events-none absolute" style={{ left: -83, top: -294, width: 1294, height: 920 }} aria-hidden="true">
-                        <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1294px" />
+                      {/* Decorative layer — clipped to the CTA box */}
+                      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+                        {/* CTA blob artwork (Figma 20:1433, 1294x920) — relative to CTA box */}
+                        <div className="absolute" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
+                          <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1294px" />
+                        </div>
+                        {/* Blurred white icon (Figma 20:1439) — relative to CTA box, right side */}
+                        <div className="absolute right-[24px] top-1/2 -translate-y-1/2 opacity-30 h-[411px] w-[411px]">
+                          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
+                        </div>
                       </div>
                       {/* content left-aligned x188 */}
                       <div className="relative z-10 pl-[32px]">
@@ -195,10 +207,6 @@ export default async function HomePage() {
                         <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center bg-white font-inter text-[15px] font-semibold text-brand">
                           Book a Demo
                         </button>
-                      </div>
-                      {/* large white icon watermark (Figma 20:1439, 411x411 at right, blur+opacity.32) */}
-                      <div className="relative z-10 h-[411px] w-[411px] shrink-0 opacity-30" aria-hidden="true">
-                        <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
                       </div>
                     </div>
                   </div>
