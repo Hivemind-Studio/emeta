@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { logoutAction } from "../../actions";
+import { logoutAction } from "../actions";
 import { requireAuth } from "@/lib/auth";
 import { getSettings } from "@/lib/data";
 
