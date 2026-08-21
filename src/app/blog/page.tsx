@@ -66,7 +66,7 @@ export default async function BlogIndexPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header brandName="PT Emeta Teknologi Indonesia" variant="light" />
+      <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== FEATURED (Design 41:1808, 0..1024) ===== */}
         <section className="bg-paper pt-[57px]">
@@ -167,21 +167,21 @@ export default async function BlogIndexPage() {
               {/* Right form panel (#f3f8ff r20) */}
               <div className="w-[572px] rounded-[20px] bg-brand-soft p-[40px]">
                 <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-                <form className="mt-[28px] space-y-[16px]">
+                <form className="mt-[28px] space-y-[16px]" action="/api/inquiry" method="POST">
                   {(["Name", "Email", "Message"] as const).map((label) => (
                     <div key={label}>
                       <label className="text-[14px] font-semibold text-graphite">{label}</label>
                       {label === "Message" ? (
-                        <textarea placeholder="Describe your requirements..." rows={3}
+                        <textarea name="message" required placeholder="Describe your requirements..." rows={3}
                           className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       ) : (
-                        <input type={label === "Email" ? "email" : "text"}
+                        <input type={label === "Email" ? "email" : "text"} name={label.toLowerCase()} required
                           placeholder={label === "Name" ? "Your name" : "your@email.com"}
                           className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
                       )}
                     </div>
                   ))}
-                  <button className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
+                  <button type="submit" className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
                     Submit Inquiry
                   </button>
                 </form>

@@ -27,21 +27,26 @@ function Tag({ children }: { children: string }) {
 }
 
 export default async function HomePage() {
-  const [settings, products, posts] = await Promise.all([
-    getSettings(),
-    getProducts(),
+  const settings = await getSettings();
+  // When the Products toggle is disabled, don't fetch or render the section at all.
+  const [products, posts] = await Promise.all([
+    settings.productsEnabled ? getProducts() : Promise.resolve([]),
     getFeaturedPosts(3),
   ]);
+  const showProducts = settings.productsEnabled && products.length > 0;
 
-  const stats = [
-    { value: "3000+", label: "Channel Partners" },
-    { value: "35", label: "Strategic Locations" },
-    { value: "300", label: "Cities in Indonesia" },
-  ];
+  const stats: { value: string; label: string }[] = (() => {
+    try {
+      const arr = JSON.parse(settings.aboutStatsJson);
+      return Array.isArray(arr) ? arr : [];
+    } catch {
+      return [];
+    }
+  })();
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header brandName="PT Emeta Teknologi Indonesia" variant="dark" />
+      <Header brandName={settings.brandName} variant="dark" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== HERO (Design 20:1383, 0..1024) ===== */}
         <section className="relative h-[1024px] overflow-hidden bg-[#fafafa]">
@@ -55,7 +60,7 @@ export default async function HomePage() {
             {/* Blurred white Emeta icon — relative to the hero container
                 (26.25% left, 16.3% top, 98.3% wide = Figma 378/167/1416 in a 1440 frame) */}
             <div className="absolute" style={{ left: "26.25%", top: "16.31%", width: "98.33%", aspectRatio: "1 / 1" }}>
-              <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-50 blur-[40px]" sizes="1416px" />
+              <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-35 blur-[28px]" sizes="1416px" />
             </div>
           </div>
           <div className={`${CTN} relative z-10`}>
@@ -105,18 +110,19 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ===== PRODUCTS (Offerings, 1536..2560) ===== */}
+        {/* ===== PRODUCTS (Offerings, 1536..2560) — hidden entirely when toggle off ===== */}
+        {showProducts && (
         <section id="products" className="h-[1024px] bg-paper">
           <div className={`${CTN}`}>
             <div className="flex flex-col items-center pt-[267px] text-center">
               <span className="inline-flex h-[30px] items-center rounded-full bg-[#e7edf7] px-[16px] text-[14px] font-semibold uppercase tracking-[0.2em] text-brand">
-                Offerings
+                {settings.offeringsEyebrow}
               </span>
               <h2 className="mt-[24px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
-                Product &amp; Solutions
+                {settings.offeringsTitle}
               </h2>
               <p className="mt-[2px] font-inter text-[18px] text-ink-soft">
-                Find out our latest news and updates
+                {settings.offeringsSubtitle}
               </p>
             </div>
             <div className="mt-[32px] flex justify-between">
@@ -142,15 +148,16 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* ===== NEWS & BLOGS (41:1550, 2560..3584) ===== */}
         <section id="news" className="h-[1024px] bg-paper">
           <div className={`${CTN}`}>
             <h2 className="pt-[233px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
-              News &amp; Blogs
+              {settings.newsEyebrow}
             </h2>
             <p className="mt-[73px] font-inter text-[18px] text-ink-soft">
-              Find out our latest news and updates
+              {settings.newsSubtitle}
             </p>
             <div className="mt-[68px] flex justify-between">
               {posts.map((p) => (
@@ -203,61 +210,68 @@ export default async function HomePage() {
                       {/* content left-aligned x188 */}
                       <div className="relative z-10 pl-[32px]">
                         <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[1.15] text-paper">
-                          Ready to Transform Your <span className="whitespace-nowrap">Business?</span>
+                          {settings.ctaTitle}
                         </h2>
-                        <p className="mt-[10px] font-inter text-[18px] text-paper">Here For you</p>
+                        <p className="mt-[10px] font-inter text-[18px] text-paper">{settings.ctaSubtitle}</p>
                         <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
-                          Book a Demo
+                          {settings.ctaButtonLabel}
                         </button>
                       </div>
                     </div>
                   </div>
                 </section>
-        <section id="contact" className="min-h-[1024px] bg-paper">
-          <div className={`${CTN}`}>
-            <h2 className="pt-[193px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">Contact Us</h2>
-            <div className="mt-[44px] flex justify-between pb-[60px]">
-              <div className="w-[492px]">
-                <div className="space-y-[32px]">
-                  {[
-                    { k: "Our Office", v: settings.officeAddress },
-                    { k: "Phone", v: settings.phoneDisplay },
-                    { k: "Email Support", v: settings.emailSupport },
-                  ].map((c) => (
-                    <div key={c.k}>
-                      <p className="text-[18px] font-bold text-brand">{c.k}</p>
-                      <p className="mt-[6px] text-[16px] leading-[1.5] text-ink">{c.v}</p>
+                <section id="contact" className="min-h-[1024px] bg-paper">
+                  <div className={`${CTN}`}>
+                    <h2 className="pt-[193px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">{settings.contactTitle}</h2>
+                    <div className="mt-[128px] flex justify-between pb-[60px]">
+                      {/* Left info + live Google Map (Ruko WTC Matahari Serpong) */}
+                      <div className="w-[492px]">
+                        <div className="space-y-[32px]">
+                          {[
+                            { k: "Our Office", v: settings.officeAddress },
+                            { k: "Phone", v: settings.phoneDisplay },
+                            { k: "Email Support", v: settings.emailSupport },
+                          ].map((c) => (
+                            <div key={c.k}>
+                              <p className="text-[18px] font-bold text-brand">{c.k}</p>
+                              <p className="mt-[6px] text-[16px] leading-[1.5] text-ink">{c.v}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="relative mt-[40px] h-[240px] w-full overflow-hidden rounded-lg">
+                          <iframe
+                            title="Ruko WTC Matahari Serpong"
+                            src="https://maps.google.com/maps?q=Ruko%20WTC%20Matahari%20Serpong&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                            className="h-full w-full border-0"
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                          />
+                        </div>
+                      </div>
+                      <div className="w-[572px] rounded-[20px] bg-brand-soft px-[40px] py-[40px]">
+                        <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
+                        <form className="mt-[28px] space-y-[16px]" action="/api/inquiry" method="POST">
+                          {(["Name", "Email", "Message"] as const).map((label) => (
+                            <div key={label}>
+                              <label className="text-[14px] font-semibold text-graphite">{label}</label>
+                              {label === "Message" ? (
+                                <textarea name="message" required placeholder="Describe your requirements..." rows={3}
+                                  className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
+                              ) : (
+                                <input type={label === "Email" ? "email" : "text"} name={label.toLowerCase()} required
+                                  placeholder={label === "Name" ? "Your name" : "your@email.com"}
+                                  className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
+                              )}
+                            </div>
+                          ))}
+                          <button type="submit" className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
+                            Submit Inquiry
+                          </button>
+                        </form>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div className="relative mt-[40px] h-[240px] w-[492px] overflow-hidden">
-                  <Image src={brandUrl("contactMap")} alt="" fill className="object-cover" sizes="492px" />
-                </div>
-              </div>
-              <div className="w-[572px] rounded-[20px] bg-brand-soft px-[40px] py-[40px]">
-                <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-                <form className="mt-[28px] space-y-[16px]">
-                  {(["Name", "Email", "Message"] as const).map((label) => (
-                    <div key={label}>
-                      <label className="text-[14px] font-semibold text-graphite">{label}</label>
-                      {label === "Message" ? (
-                        <textarea placeholder="Describe your requirements..." rows={3}
-                          className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                      ) : (
-                        <input type={label === "Email" ? "email" : "text"}
-                          placeholder={label === "Name" ? "Your name" : "your@email.com"}
-                          className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                      )}
-                    </div>
-                  ))}
-                  <button className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
-                    Submit Inquiry
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
+                  </div>
+                </section>
       </main>
       <Footer settings={settings} />
     </div>

@@ -47,6 +47,20 @@ export async function updateSettings(formData: FormData) {
       aboutTitle: g("aboutTitle"),
       aboutBody: g("aboutBody"),
       copyright: g("copyright"),
+      heroCtaLabel: g("heroCtaLabel"),
+      aboutStatsJson: g("aboutStatsJson"),
+      offeringsEyebrow: g("offeringsEyebrow"),
+      offeringsTitle: g("offeringsTitle"),
+      offeringsSubtitle: g("offeringsSubtitle"),
+      newsEyebrow: g("newsEyebrow"),
+      newsSubtitle: g("newsSubtitle"),
+      ctaTitle: g("ctaTitle"),
+      ctaSubtitle: g("ctaSubtitle"),
+      ctaButtonLabel: g("ctaButtonLabel"),
+      contactTitle: g("contactTitle"),
+      productsEnabled: formData.get("productsEnabled") === "on",
+      comingSoonTitle: g("comingSoonTitle"),
+      comingSoonQuote: g("comingSoonQuote"),
       heroImageUrl: opt("heroImageUrl"),
       logoWhiteUrl: opt("logoWhiteUrl"),
       logoBlueUrl: opt("logoBlueUrl"),
@@ -54,5 +68,7 @@ export async function updateSettings(formData: FormData) {
     },
   });
   revalidatePath("/");
+  revalidatePath("/blog");
+  revalidatePath("/coming-soon");
   revalidatePath("/admin/settings");
 }

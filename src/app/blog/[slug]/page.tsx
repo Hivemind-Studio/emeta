@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header brandName="PT Emeta Teknologi Indonesia" variant="light" />
+      <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* Hero image */}
         <div className="bg-paper pb-8 pt-32">

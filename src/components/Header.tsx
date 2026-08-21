@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { brandUrl } from "@/lib/brandAssets";
 
-// Nav links per the Emeta Design page
-const LINKS = [
+// Nav links per the Emeta Design page (productsHref switches to /coming-soon when disabled)
+const LINKS = (productsHref: string) => [
   { href: "/#about", label: "About Us" },
-  { href: "/#products", label: "Products" },
+  { href: productsHref, label: "Products" },
   { href: "/#services", label: "Services" },
   { href: "/blog", label: "Blogs" },
 ];
@@ -16,9 +16,12 @@ const LINKS = [
 export function Header({
   brandName,
   variant = "light",
+  productsEnabled = true,
 }: {
   brandName: string;
   variant?: "dark" | "light";
+  /** When false, the Products nav item points to the Coming Soon page. */
+  productsEnabled?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const dark = variant === "dark"; // over hero (white logo, mist nav)
@@ -45,7 +48,7 @@ export function Header({
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Utama">
-          {LINKS.map((l) => (
+          {LINKS(productsEnabled ? "/#products" : "/coming-soon").map((l) => (
             <Link
               key={l.label}
               href={l.href}
@@ -89,7 +92,7 @@ export function Header({
       {open && (
         <nav className={`border-t px-6 py-4 lg:hidden ${dark ? "border-white/10 bg-black/70" : "border-black/5 bg-white"}`}>
           <ul className="flex flex-col gap-4">
-            {LINKS.map((l) => (
+            {LINKS(productsEnabled ? "/#products" : "/coming-soon").map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href}

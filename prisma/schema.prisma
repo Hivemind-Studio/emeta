@@ -24,6 +24,22 @@ model GlobalSettings {
   aboutTitle    String  @default("PT Emeta Teknologi Indonesia")
   aboutBody     String  @default("Founded in (YEAR) to bridge the gap between world-class artificial intelligence (AI) and both growing organizations and established enterprises.")
   copyright     String  @default("© 2026 PT Emeta Teknologi Indonesia. All rights reserved.")
+  // Section wording — Home
+  heroCtaLabel  String  @default("Get in Touch")
+  aboutStatsJson String @default("[{\"value\":\"3000+\",\"label\":\"Channel Partners\"},{\"value\":\"35\",\"label\":\"Strategic Locations\"},{\"value\":\"300\",\"label\":\"Cities in Indonesia\"}]")
+  offeringsEyebrow String @default("Offerings")
+  offeringsTitle   String @default("Product & Solutions")
+  offeringsSubtitle String @default("Find out our latest news and updates")
+  newsEyebrow   String  @default("News & Blogs")
+  newsSubtitle  String  @default("Find out our latest news and updates")
+  ctaTitle      String  @default("Ready to Transform Your Business?")
+  ctaSubtitle   String  @default("Here For you")
+  ctaButtonLabel String @default("Book a Demo")
+  contactTitle  String  @default("Contact Us")
+  // Products/Solutions toggle: when disabled, navbar link shows the Coming Soon page
+  productsEnabled Boolean @default(true)
+  comingSoonTitle String @default("Coming Soon...")
+  comingSoonQuote String @default("\u201cA Beautiful Quote of the Century about waiting\u201d")
   heroImageUrl  String? // key of hero background image uploaded via CDN
   logoWhiteUrl  String?
   logoBlueUrl   String?

@@ -16,10 +16,28 @@ export default async function AdminSettingsPage() {
     { key: "twitterUrl", label: "Twitter URL", full: true },
     { key: "youtubeUrl", label: "YouTube URL", full: true },
     { key: "foundedYear", label: "Tahun Berdiri" },
+    // Home — hero & about
     { key: "heroTitle", label: "Hero Judul", full: true },
     { key: "heroBody", label: "Hero Deskripsi", full: true },
+    { key: "heroCtaLabel", label: "Hero Tombol" },
     { key: "aboutTitle", label: "About Judul" },
     { key: "aboutBody", label: "About Deskripsi", full: true },
+    { key: "aboutStatsJson", label: "Stats (JSON: value/label)", full: true },
+    // Products / Offerings
+    { key: "offeringsEyebrow", label: "Offerings Eyebrow" },
+    { key: "offeringsTitle", label: "Offerings Judul" },
+    { key: "offeringsSubtitle", label: "Offerings Subjudul", full: true },
+    // News
+    { key: "newsEyebrow", label: "News Judul" },
+    { key: "newsSubtitle", label: "News Subjudul", full: true },
+    // CTA
+    { key: "ctaTitle", label: "CTA Judul", full: true },
+    { key: "ctaSubtitle", label: "CTA Subjudul" },
+    { key: "ctaButtonLabel", label: "CTA Tombol" },
+    // Contact & Coming Soon
+    { key: "contactTitle", label: "Contact Judul" },
+    { key: "comingSoonTitle", label: "Coming Soon Judul" },
+    { key: "comingSoonQuote", label: "Coming Soon Quote", full: true },
     { key: "copyright", label: "Copyright", full: true },
   ];
 
@@ -43,6 +61,28 @@ export default async function AdminSettingsPage() {
               />
             </div>
           ))}
+        </div>
+
+        {/* Products & Solutions visibility toggle */}
+        <div className="rounded-xl border border-line-soft bg-brand-soft/40 p-6">
+          <label className="flex items-start gap-3">
+            <input
+              type="checkbox"
+              name="productsEnabled"
+              defaultChecked={s.productsEnabled}
+              className="mt-1 h-5 w-5 accent-[#1a60d9]"
+            />
+            <span>
+              <span className="block text-sm font-semibold text-ink-soft">
+                Products &amp; Solutions — aktif
+              </span>
+              <span className="mt-1 block text-sm text-graphite">
+                Saat aktif, menu &quot;Products&quot; di navbar membuka section Offerings di
+                beranda. Saat nonaktif, section tersebut disembunyikan dan menu
+                mengarah ke halaman Coming Soon.
+              </span>
+            </span>
+          </label>
         </div>
 
         <div className="border-t border-line-soft pt-6">
