@@ -34,10 +34,11 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   // Footer at 1440x1024; content column anchored at left x156.
   return (
     <footer className="relative h-[1024px] overflow-hidden bg-brand text-white">
-      {/* Large white Emeta icon watermark (Figma 20:1349 at 252,4497,1599x1599) */}
+      {/* Large white Emeta icon watermark — positioned relative to this section
+          (Figma root x252, y4497; footer section begins at page-y 5120, so top=-623) */}
       <div
         className="pointer-events-none absolute"
-        style={{ left: 252, top: 4497 - 5120, width: 1599, height: 1599 }}
+        style={{ left: "15.75%", top: -623, width: 1599, height: 1599 }}
         aria-hidden="true"
       >
         <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-100 blur-[26px]" sizes="1599px" />
