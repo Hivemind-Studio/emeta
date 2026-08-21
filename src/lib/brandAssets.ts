@@ -2,16 +2,18 @@ import { buildAssetUrl } from "@/lib/storage/url";
 
 /**
  * Figma-exported brand assets, hosted on the R2 CDN under the emeta prefix
- * (cdn.denovamind.com/emeta). Keys returned by the upload-assets script.
- * Using the CDN (buildAssetUrl) guarantees these are the EXACT Figma assets
- * and served from cdn.denovamind.com/emeta, never a local substitute.
+ * (cdn.denovamind.com/emeta). Keys returned by the upload-assets script (HD
+ * 4x exports). Using the CDN (buildAssetUrl) guarantees these are the EXACT
+ * Figma assets and served from cdn.denovamind.com/emeta, never a local
+ * substitute.
  */
 export const BRAND_ASSETS: Record<string, string> = {
-  heroBg: "2026-08/emeta-hero-bg-511585cc.webp",
-  logoWhite: "2026-08/emeta-logo-white-00264f74.webp",
-  logoBlue: "2026-08/emeta-logo-blue-e0df7022.webp",
-  iconWhite: "2026-08/emeta-icon-white-15c86426.webp",
-  contactMap: "2026-08/emeta-contact-map-4c31b637.webp",
+  heroBg: "2026-08/emeta-hero-bg-274e77ae.webp",
+  logoWhite: "2026-08/emeta-logo-white-c85dca5e.webp",
+  logoBlue: "2026-08/emeta-logo-blue-07bf057e.webp",
+  iconWhite: "2026-08/emeta-icon-white-clean-3eabaec4.webp",
+  ctaBg: "2026-08/emeta-cta-bg-1a84d18f.webp",
+  contactMap: "2026-08/emeta-contact-map-1db0319d.webp",
 };
 
 export function brandUrl(id: string): string {
