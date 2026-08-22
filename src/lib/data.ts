@@ -78,3 +78,17 @@ export async function getFeaturedPosts(limit?: number): Promise<BlogItem[]> {
 export async function getPostBySlug(slug: string): Promise<BlogItem | null> {
   return prisma.blogPost.findFirst({ where: { slug, published: true } });
 }
+
+/** Resolve an old blog URL to its current post (for 301 redirects after slug changes). */
+export async function getPostIdBySlugAlias(slug: string): Promise<string | null> {
+  const alias = await prisma.blogSlugAlias.findUnique({
+    where: { slug },
+    select: { postId: true },
+  });
+  if (!alias) return null;
+  const post = await prisma.blogPost.findUnique({
+    where: { id: alias.postId },
+    select: { slug: true, published: true },
+  });
+  return post?.published ? post.slug : null;
+}

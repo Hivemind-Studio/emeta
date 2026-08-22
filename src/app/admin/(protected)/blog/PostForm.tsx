@@ -28,6 +28,28 @@ export function PostForm({
           />
         </Field>
 
+        {post && (
+          <Field label="Slug URL (ubah hanya jika perlu — URL lama otomatis dialihkan)" htmlFor="slug">
+            <input
+              id="slug"
+              name="slug"
+              defaultValue={post?.slug}
+              placeholder={post?.slug}
+              className="w-full rounded-lg border border-line bg-white px-4 py-3 font-mono text-sm outline-none focus:border-navy"
+            />
+          </Field>
+        )}
+
+        <Field label="Tags (koma-pisah, pilar konten: Product Update / AI &amp; Analytics / Customer Story / Company News / Market Insight)" htmlFor="tags">
+          <input
+            id="tags"
+            name="tags"
+            defaultValue={post?.tags ?? ""}
+            placeholder="Product Update, AI & Analytics"
+            className="w-full rounded-lg border border-line bg-white px-4 py-3 outline-none focus:border-navy"
+          />
+        </Field>
+
         <ImageUploader name="imageUrl" label="Gambar Artikel (upload atau tempel URL)" defaultValue={post?.imageUrl} />
 
         <Field label="Ringkasan (excerpt)" htmlFor="excerpt">

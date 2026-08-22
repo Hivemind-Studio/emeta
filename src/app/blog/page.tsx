@@ -8,12 +8,22 @@ import { buildAssetUrl } from "@/lib/storage/url";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: { absolute: "News & Blogs | PT Emeta Teknologi Indonesia" },
-  description:
-    "Find out our latest news and updates from PT Emeta Teknologi Indonesia.",
-  alternates: { canonical: "/blog" },
-};
+const SITE_URL = process.env.SITE_URL || "https://emeta.zeabur.app";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, Number(pageParam) || 1);
+  return {
+    title: { absolute: `News & Blogs${page > 1 ? ` — Page ${page}` : ""} | PT Emeta Teknologi Indonesia` },
+    description:
+      "Find out our latest news and updates from PT Emeta Teknologi Indonesia.",
+    alternates: { canonical: page > 1 ? `/blog?page=${page}` : "/blog" },
+  };
+}
 
 /** Content region = 1128px wide (156px margins on the 1440 design). */
 const CTN = "mx-auto w-full max-w-[1128px] px-6 md:px-0";
@@ -40,8 +50,8 @@ function NewsCard({
             sizes={big ? "520px" : "(max-width:768px) 50vw, 264px"}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#b3b3b3]">
-            <span className="font-inter text-[18px] font-bold text-[#d4d4d4]">Place Holder</span>
+          <div className="absolute inset-0 flex items-center justify-center bg-brand">
+            <Image src="/images/og-cover.jpg" alt="" width={300} height={158} className="object-contain opacity-90" />
           </div>
         )}
       </div>
@@ -57,26 +67,59 @@ function NewsCard({
   );
 }
 
-export default async function BlogIndexPage() {
-  const [settings, featured, { items: posts }] = await Promise.all([
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, Number(pageParam) || 1);
+  const [settings, featured, { items: posts, totalPages }] = await Promise.all([
     getSettings(),
-    getFeaturedPosts(2),
-    getPublishedPostsPage(1, 11),
+    // Featured hero only on page 1 — deeper pages go straight to the grid
+    page === 1 ? getFeaturedPosts(2) : Promise.resolve([]),
+    getPublishedPostsPage(page, 11),
   ]);
+
+  const blogLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "News & Blogs",
+    url: `${SITE_URL}/blog`,
+    publisher: { "@type": "Organization", name: settings.brandName },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      url: `${SITE_URL}/blog/${p.slug}`,
+      datePublished: p.createdAt.toISOString(),
+      dateModified: p.updatedAt.toISOString(),
+    })),
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+    ],
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd).replace(/</g, "\\u003c") }} />
       <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== FEATURED (Design 41:1808, 0..1024) ===== */}
+        {page === 1 && (
         <section className="bg-paper pt-[145px]">
           <div className={CTN}>
             {/* Blue rounded panel (Figma 41:1809, r16) with head + featured cards */}
             <div className="rounded-2xl bg-brand pb-[120px] pt-[120px]">
               <div className="px-[32px]">
-                <h1 className="text-[54px] font-extrabold leading-[64px] text-paper">
+                <h2 className="text-[54px] font-extrabold leading-[64px] text-paper">
                   Featured
-                </h1>
+                </h2>
                 <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
               </div>
               <div className="mt-[64px] flex flex-wrap justify-between gap-[24px] px-[32px]">
@@ -89,13 +132,14 @@ export default async function BlogIndexPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
         <section id="news" className="bg-paper">
-          <div className={`${CTN} pt-[300px]`}>
-            <h2 className="max-w-[400px] text-[54px] font-extrabold leading-[64px] text-ink-soft">
+          <div className={`${CTN} ${page === 1 ? "pt-[300px]" : "pt-[145px]"}`}>
+            <h1 className="max-w-[400px] text-[54px] font-extrabold leading-[64px] text-ink-soft">
               News &amp;<br />Blogs
-            </h2>
+            </h1>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">
               Find out our latest news and updates
             </p>
@@ -106,6 +150,25 @@ export default async function BlogIndexPage() {
                 </div>
               ))}
             </div>
+
+            {/* Pagination — crawlable links with self-canonicals per page */}
+            {totalPages > 1 && (
+              <nav aria-label="Blog pages" className="mt-[64px] flex items-center justify-center gap-3 pb-[40px]">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
+                  n === page ? (
+                    <span key={n} aria-current="page"
+                      className="inline-flex h-[44px] min-w-[44px] items-center justify-center rounded-lg bg-brand px-3 text-[15px] font-semibold text-white">
+                      {n}
+                    </span>
+                  ) : (
+                    <Link key={n} href={n === 1 ? "/blog" : `/blog?page=${n}`}
+                      className="inline-flex h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-line-soft bg-white px-3 text-[15px] font-semibold text-ink hover:border-brand hover:text-brand">
+                      {n}
+                    </Link>
+                  ),
+                )}
+              </nav>
+            )}
           </div>
         </section>
 

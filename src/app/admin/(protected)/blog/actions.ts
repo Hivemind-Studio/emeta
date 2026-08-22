@@ -29,13 +29,14 @@ export async function createPost(formData: FormData) {
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
+  const tags = String(formData.get("tags") || "").trim();
 
   if (!title) redirect("/admin/blog/new?error=post-created");
 
   try {
     const slug = await uniqueSlug(title);
     await prisma.blogPost.create({
-      data: { title, slug, excerpt, content, published, featured, imageUrl },
+      data: { title, slug, tags, excerpt, content, published, featured, imageUrl },
     });
   } catch {
     redirect("/admin/blog/new?error=post-created");
@@ -54,18 +55,28 @@ export async function updatePost(formData: FormData) {
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
+  // Slug is only changed when the admin edits the explicit Slug field.
+  // Never derive it from the title on update — that silently breaks live URLs.
+  const requestedSlug = String(formData.get("slug") || "").trim();
+  const tags = String(formData.get("tags") || "").trim();
 
   try {
     const prev = await prisma.blogPost.findUnique({ where: { id } });
-    let slug = slugify(title);
-    if (slug) {
-      const clash = await prisma.blogPost.findFirst({ where: { slug, id: { not: id } } });
-      if (clash) slug = await uniqueSlug(title);
+    if (!prev) redirect(`/admin/blog/${id}/edit?error=post-updated`);
+
+    let slug = prev.slug;
+    if (requestedSlug && slugify(requestedSlug) && slugify(requestedSlug) !== prev.slug) {
+      const next = await uniqueSlug(requestedSlug);
+      if (next !== prev.slug) {
+        // Keep the old URL working: record it as an alias → 301 to the new one
+        await prisma.blogSlugAlias.create({ data: { slug: prev.slug, postId: id } }).catch(() => {});
+        slug = next;
+      }
     }
 
     await prisma.blogPost.update({
       where: { id },
-      data: { title, slug, excerpt, content, published, featured, imageUrl },
+      data: { title, slug, tags, excerpt, content, published, featured, imageUrl },
     });
     if (prev?.imageUrl && prev.imageUrl !== imageUrl) {
       try { await deleteFile(prev.imageUrl); } catch {}
