@@ -114,7 +114,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               Another
             </h2>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">Find out our latest news and updates</p>
-            <div className="mt-[36px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4 items-stretch">
+            <div className="mt-[34px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4 items-stretch">
               {morePosts
                 .filter((mp) => mp.slug !== post.slug)
                 .slice(0, 3)

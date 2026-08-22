@@ -34,10 +34,10 @@ export default async function ComingSoonPage() {
               <h1 className="max-w-[533px] text-[54px] font-extrabold leading-none text-paper">
                 {settings.comingSoonTitle}
               </h1>
-              <p className="mt-[37px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
+              <p className="mt-[37px] min-h-[56px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
                 {settings.comingSoonQuote}
               </p>
-              <div className="mt-[43px]">
+              <div className="mt-[27px]">
                 <a href="/" className="inline-flex h-[47px] w-[120px] items-center justify-center rounded-[8px] bg-brand-light font-inter text-[16px] font-semibold text-white">
                   Go Back
                 </a>

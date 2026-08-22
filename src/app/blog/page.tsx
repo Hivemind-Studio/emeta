@@ -79,7 +79,7 @@ export default async function BlogIndexPage() {
                 </h1>
                 <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
               </div>
-              <div className="mt-[44px] flex flex-wrap justify-between gap-[24px] px-[32px]">
+              <div className="mt-[64px] flex flex-wrap justify-between gap-[24px] px-[32px]">
                 {featured.map((p) => (
                   <div key={p.id} className="w-[520px] max-w-full">
                     <NewsCard post={p} big />
@@ -93,15 +93,13 @@ export default async function BlogIndexPage() {
         {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
         <section id="news" className="bg-paper">
           <div className={`${CTN} pt-[140px]`}>
-            <h2 className="text-[54px] font-extrabold leading-[64px] text-ink-soft">
+            <h2 className="max-w-[400px] text-[54px] font-extrabold leading-[64px] text-ink-soft">
               News &amp; Blogs
             </h2>
-            <p className="mt-[10px] font-inter text-[18px] text-ink-soft">
+            <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">
               Find out our latest news and updates
             </p>
-
-            {/* Rows of 4 cards, 264 wide each (Figma rows at y1396 / 1786 / 2176) */}
-            <div className="mt-[68px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-[64px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4">
               {posts.slice(0, 8).map((p) => (
                 <div key={p.id}>
                   <NewsCard post={p} />
