@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { Updater } from "./form";
 import { ProductCreateForm } from "./create-form";
+import Link from "next/link";
 
 export const metadata = { title: "Produk | PT Emeta Teknologi Indonesia" };
 
@@ -26,7 +27,16 @@ export default async function AdminProductsPage() {
       <div className="mt-6 space-y-3">
         {products.length === 0 && <p className="p-6 text-center text-graphite">Belum ada produk.</p>}
         {products.map((p) => (
-          <Updater key={p.id} p={p} />
+          <div key={p.id} className="relative">
+            <Link
+              href={`/products/${p.slug}`}
+              target="_blank"
+              className="absolute right-5 top-5 z-10 text-xs font-medium text-navy hover:underline"
+            >
+              Lihat halaman ↗
+            </Link>
+            <Updater p={p} />
+          </div>
         ))}
       </div>
     </div>

@@ -18,6 +18,7 @@ export function ProductCreateForm() {
   return (
     <form action={createProduct} className="mt-4 grid gap-4 sm:grid-cols-2">
       <Field name="title" label="Judul" placeholder="WrenAI" />
+      <Field name="slug" label="Slug URL (opsional)" placeholder="wrenai — kosongkan untuk otomatis" />
       <Field name="tags" label="Tags (koma-pisah)" placeholder="Data, AI, For Business" />
       <div className="sm:col-span-2">
         <label className="mb-2 block text-sm font-semibold text-ink-soft">Deskripsi</label>

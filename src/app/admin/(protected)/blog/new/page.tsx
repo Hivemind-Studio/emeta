@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PostForm } from "../PostForm";
 import { createPost } from "../actions";
 
-export const metadata = { title: "Artikel Baru | Everest Electronics" };
+export const metadata = { title: "Artikel Baru | PT Emeta Teknologi Indonesia" };
 
 export default function NewPostPage() {
   return (

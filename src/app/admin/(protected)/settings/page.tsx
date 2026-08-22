@@ -11,6 +11,7 @@ export default async function AdminSettingsPage() {
     { key: "brandName", label: "Nama Brand" },
     { key: "phoneDisplay", label: "Telepon (tampilan)" },
     { key: "emailSupport", label: "Email Support", full: true },
+    { key: "inquiryEmail", label: "Inquiry Email — penerima pesan \"Send a Message\"", full: true },
     { key: "officeAddress", label: "Alamat Kantor", full: true },
     { key: "linkedinUrl", label: "LinkedIn URL", full: true },
     { key: "facebookUrl", label: "Facebook URL", full: true },

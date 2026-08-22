@@ -16,6 +16,7 @@ export async function updateSettings(formData: FormData) {
     brandName: g("brandName"),
     phoneDisplay: g("phoneDisplay"),
     emailSupport: g("emailSupport"),
+    inquiryEmail: g("inquiryEmail"),
     officeAddress: g("officeAddress"),
     linkedinUrl: g("linkedinUrl"),
     facebookUrl: g("facebookUrl"),

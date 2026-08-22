@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { deletePost } from "./actions";
+import { DeletePostForm } from "./DeletePostForm";
 
-export const metadata = { title: "Artikel | Everest Electronics" };
+export const metadata = { title: "Artikel | PT Emeta Teknologi Indonesia" };
 
 export default async function AdminBlogPage() {
   const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: "desc" } });
@@ -54,10 +55,7 @@ export default async function AdminBlogPage() {
                       <Link href={`/admin/blog/${p.id}/edit`} className="text-navy hover:underline">
                         Edit
                       </Link>
-                      <form action={deletePost} className="inline">
-                        <input type="hidden" name="id" value={p.id} />
-                        <button className="text-red-600 hover:underline">Hapus</button>
-                      </form>
+                      <DeletePostForm id={p.id} title={p.title} />
                     </div>
                   </td>
                 </tr>

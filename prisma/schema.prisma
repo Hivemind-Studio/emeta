@@ -44,13 +44,24 @@ model GlobalSettings {
   logoWhiteUrl  String?
   logoBlueUrl   String?
   contactMapUrl String?
+  // Recipient of "Send a Message" inquiries (admin-defined)
+  inquiryEmail  String  @default("info@emeta.co.id")
   updatedAt     DateTime @updatedAt
+}
+
+// Emails captured from the hero "Get in Touch" field — newsletter audience
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  source    String   @default("website")
+  createdAt DateTime @default(now())
 }
 
 // Company products (WrenAI, BarkingDog, AI Amaze, Phison)
 model Product {
   id        String  @id @default(cuid())
   title     String
+  slug      String  @unique
   tags      String  @default("") // comma-separated short tags e.g. "Data,AI,For Business"
   description String
   iconUrl   String? // icon image key (CDN)

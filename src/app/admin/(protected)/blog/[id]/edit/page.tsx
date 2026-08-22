@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { PostForm } from "../../PostForm";
 import { updatePost } from "../../actions";
 
-export const metadata = { title: "Edit Artikel | Everest Electronics" };
+export const metadata = { title: "Edit Artikel | PT Emeta Teknologi Indonesia" };
 
 export default async function EditPostPage({
   params,

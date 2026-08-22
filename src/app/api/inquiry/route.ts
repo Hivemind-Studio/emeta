@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 /**
  * POST /api/inquiry — receives the contact form and emails it to the
- * company's support address (info@emeta.co.id by default).
+ * company's inquiry address defined by the admin in GlobalSettings
+ * (fallback: INQUIRY_TO_EMAIL env, then info@emeta.co.id).
  *
  * Transport: SMTP via nodemailer when SMTP_* env vars are present.
- * Fallback: stores nothing but returns success only if email sent;
- * if no SMTP configured, respond 503 so the admin knows to configure it.
+ * If no SMTP is configured, respond 503 so the sender knows delivery is unavailable.
  */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 export async function POST(req: Request) {
   try {
     const form = await req.formData().catch(() => null);
@@ -23,11 +26,21 @@ export async function POST(req: Request) {
     if (!name || !email || !message) {
       return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!EMAIL_RE.test(email)) {
       return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
     }
 
-    const to = process.env.INQUIRY_TO_EMAIL || "info@emeta.co.id";
+    // Recipient = admin-defined "inquiry email", with env/constant fallbacks
+    let to = process.env.INQUIRY_TO_EMAIL || "info@emeta.co.id";
+    try {
+      const settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
+      if (settings?.inquiryEmail && EMAIL_RE.test(settings.inquiryEmail)) {
+        to = settings.inquiryEmail;
+      }
+    } catch {
+      // DB hiccup — fall back to env/default
+    }
+
     const host = process.env.SMTP_HOST;
     const port = Number(process.env.SMTP_PORT || 587);
     const user = process.env.SMTP_USER;

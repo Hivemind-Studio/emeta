@@ -18,6 +18,7 @@ async function main() {
   const products = [
     {
       title: "WrenAI",
+      slug: "wrenai",
       tags: "Generative BI Engine, AI, For Business",
       description:
         "Converting questions in plain language to governed SQL, charts, and insights. Compatible with 20+ data sources, suitable for both on-prem & cloud deployment.",
@@ -25,6 +26,7 @@ async function main() {
     },
     {
       title: "BarkingDog",
+      slug: "barkingdog",
       tags: "Generative BI Engine, AI, For Business",
       description:
         "Converting questions in plain language to governed SQL, charts, and insights. Compatible with 20+ data sources, suitable for both on-prem & cloud deployment.",
@@ -32,6 +34,7 @@ async function main() {
     },
     {
       title: "Phison",
+      slug: "phison",
       tags: "Data, AI, For Business",
       description:
         "Converting questions in plain language to governed SQL, charts, and insights. Compatible with 20+ data sources, suitable for both on-prem & cloud deployment.",

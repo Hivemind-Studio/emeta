@@ -14,12 +14,13 @@ function Field({ name, label, defaultValue, placeholder }: { name: string; label
   );
 }
 
-export function Updater({ p }: { p: { id: string; title: string; tags: string; description: string; iconUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
+export function Updater({ p }: { p: { id: string; title: string; slug: string; tags: string; description: string; iconUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
   return (
     <form action={updateProduct} className="rounded-xl border border-line-soft bg-white p-5">
       <input type="hidden" name="id" value={p.id} />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Field name="title" label="Judul" defaultValue={p.title} />
+        <Field name="slug" label="Slug URL" defaultValue={p.slug} placeholder="otomatis dari judul" />
         <Field name="tags" label="Tags" defaultValue={p.tags} />
         <Field name="learnMoreUrl" label="Learn More URL" defaultValue={p.learnMoreUrl ?? ""} placeholder="https://…" />
         <Field name="sortOrder" label="Urutan" defaultValue={String(p.sortOrder)} placeholder="0" />

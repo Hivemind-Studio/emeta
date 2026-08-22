@@ -19,6 +19,10 @@ export async function getProducts(): Promise<ProductItem[]> {
   return prisma.product.findMany({ orderBy: { sortOrder: "asc" } });
 }
 
+export async function getProductBySlug(slug: string): Promise<ProductItem | null> {
+  return prisma.product.findUnique({ where: { slug } });
+}
+
 /** Fetch published blog posts, newest first, with pagination. */
 export async function getPublishedPosts(limit?: number): Promise<BlogItem[]> {
   return prisma.blogPost.findMany({
