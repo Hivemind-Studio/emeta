@@ -48,7 +48,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <main className="flex-1 bg-paper">
         {/* ===== TOP SECTION (Figma 41:2480 News, 0..867) ===== */}
         <section className="bg-paper">
-          <div className="mx-auto flex w-full max-w-[1128px] justify-between pb-[87px] pt-[159px] md:px-0">
+          <div className="mx-auto flex w-full max-w-[1128px] pb-[87px] pt-[159px] md:px-0">
             {/* Pic — left, 564x546, square corners per design */}
             <div className="relative h-[546px] w-[564px] shrink-0 overflow-hidden bg-[#b3b3b3]">
               {product.iconUrl ? (
@@ -67,8 +67,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               )}
             </div>
 
-            {/* Content — right column at x748 (= 1128 grid + 592 offset) */}
-            <div className="w-[520px]">
+            {/* Content — right column at x748 (= 156+564+28 gap), title baseline y175 */}
+            <div className="w-[520px] shrink-0 grow-0 ml-[28px] pt-[16px]">
               <h1 className="max-w-[533px] font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
                 {product.title}
               </h1>
