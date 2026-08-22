@@ -12,13 +12,19 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: Request) {
   try {
-    const form = await req.formData();
+    const form = await req.formData().catch(() => null);
+    if (!form) {
+      return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
+    }
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim();
     const message = String(form.get("message") || "").trim();
 
     if (!name || !email || !message) {
       return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
     }
 
     const to = process.env.INQUIRY_TO_EMAIL || "info@emeta.co.id";

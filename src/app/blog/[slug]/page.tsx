@@ -21,8 +21,8 @@ function Tag({ children }: { children: string }) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "Artikel Tidak Ditemukan | PT Emeta Teknologi Indonesia" };
-  const title = `${post.title} | PT Emeta Teknologi Indonesia`;
+  if (!post) return { title: { absolute: "Artikel Tidak Ditemukan | PT Emeta Teknologi Indonesia" } };
+  const title = { absolute: `${post.title} | PT Emeta Teknologi Indonesia` };
   const description = post.excerpt;
   const ogImage = post.imageUrl ? buildAssetUrl(post.imageUrl) : `${SITE_URL}/images/og-cover.jpg`;
   return {
@@ -58,8 +58,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* Hero image */}
-        <div className="bg-paper pb-8 pt-32">
-          <div className="container-emeta">
+        <div className="bg-paper pt-[21px]">
+          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0">
             <div className="relative aspect-[1128/546] overflow-hidden">
               {post.imageUrl ? (
                 <Image
@@ -80,19 +80,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Article content */}
-        <article className="bg-paper pb-16">
-          <div className="container-emeta max-w-[744px]">
-            <h1 className="font-sans text-[clamp(2.5rem,5vw,3.375rem)] font-extrabold leading-[1.15] text-ink-soft">
+        <article className="bg-paper pt-[34px] pb-16">
+          <div className="mx-auto w-full max-w-[744px] px-6 md:px-0">
+            <h1 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
               {post.title}
             </h1>
-            <p className="mt-3 font-inter text-lg text-ink">
+            <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink">
               {new Date(post.createdAt).toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
               })}
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-[12px] flex flex-wrap gap-2">
               {DEFAULT_TAGS.map((t) => (
                 <Tag key={t}>{t}</Tag>
               ))}
@@ -109,12 +109,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* ===== Another (related) ===== */}
         <section className="bg-paper pb-16">
-          <div className="container-emeta">
-            <h2 className="font-sans text-[clamp(2.5rem,5vw,3.375rem)] font-extrabold leading-[1.1] text-ink-soft">
+          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0">
+            <h2 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
               Another
             </h2>
-            <p className="mt-2 font-inter text-lg text-ink-soft">Find out our latest news and updates</p>
-            <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 items-stretch">
+            <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">Find out our latest news and updates</p>
+            <div className="mt-[36px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4 items-stretch">
               {morePosts
                 .filter((mp) => mp.slug !== post.slug)
                 .slice(0, 3)
@@ -122,9 +122,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <Link
                     key={mp.id}
                     href={`/blog/${mp.slug}`}
-                    className="group block overflow-hidden border border-line/30 bg-paper"
+                    className="group block h-[326px] w-full max-w-[270px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
                   >
-                    <div className="relative aspect-[264/206] overflow-hidden">
+                    <div className="relative h-[206px] overflow-hidden">
                       {mp.imageUrl ? (
                         <Image
                           src={buildAssetUrl(mp.imageUrl)}
@@ -139,23 +139,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         </div>
                       )}
                     </div>
-                    <div className="p-3">
-                      <p className="font-sans text-[20px] font-bold leading-snug text-ink-soft">{mp.title}</p>
-                      <p className="mt-1 font-sans text-base text-ink-soft line-clamp-2">{mp.excerpt}</p>
-                      <p className="mt-2 font-sans text-base font-bold text-brand">Read More</p>
+                    <div className="p-[12px]">
+                      <p className="font-sans text-[20px] font-bold leading-[28px] text-ink-soft">{mp.title}</p>
+                      <p className="mt-[4px] font-sans text-[16px] leading-[28px] text-ink-soft line-clamp-1">{mp.excerpt}</p>
+                      <p className="mt-[0px] font-sans text-[16px] font-bold leading-[28px] text-brand">Read More</p>
                     </div>
                   </Link>
                 ))}
               {/* Find More / Here blue card (design 41:2196) */}
               <Link
                 href="/blog"
-                className="group flex flex-col items-center justify-center gap-2 overflow-hidden bg-brand p-6 text-center"
+                className="group relative flex h-[326px] w-[247px] flex-col items-center justify-center self-start overflow-hidden rounded-2xl bg-brand"
               >
-                <div className="relative">
-                  <span className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-brand-light" />
-                  <span className="relative font-sans text-[20px] font-bold text-paper">Find More</span>
-                </div>
-                <span className="relative font-sans text-base font-bold text-brand-light">Here</span>
+                {/* blurry blue circle bg — top-right behind text (per Figma 41:2197, 210px at rel x132 y52) */}
+                <span
+                  className="absolute h-[210px] w-[210px] rounded-full bg-brand-light opacity-30 blur-[100px]"
+                  style={{ left: 132, top: 52 }}
+                  aria-hidden="true"
+                />
+                <span className="relative text-[20px] font-bold leading-[28px] text-paper">Find More</span>
+                <span className="relative font-sans text-[16px] font-bold leading-[28px] text-brand-light">Here</span>
               </Link>
             </div>
           </div>

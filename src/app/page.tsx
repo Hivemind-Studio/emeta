@@ -64,11 +64,10 @@ export default async function HomePage() {
             </div>
           </div>
           <div className={`${CTN} relative z-10`}>
-            <div className="pt-[384px]">
-              <h1 className="max-w-[533px] text-[54px] font-extrabold leading-[1.78] text-paper">
+              <h1 className="max-w-[533px] pt-[384px] text-[54px] font-extrabold leading-[64px] text-paper">
                 The Best Click Bait In The World
               </h1>
-              <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-normal text-white/88">
+              <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
                 {settings.heroBody}
               </p>
               <form className="mt-[27px] flex" action="/#contact">
@@ -79,7 +78,6 @@ export default async function HomePage() {
                   Get in Touch
                 </button>
               </form>
-            </div>
           </div>
         </section>
 

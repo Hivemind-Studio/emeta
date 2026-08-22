@@ -9,7 +9,7 @@ import { buildAssetUrl } from "@/lib/storage/url";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "News & Blogs | PT Emeta Teknologi Indonesia",
+  title: { absolute: "News & Blogs | PT Emeta Teknologi Indonesia" },
   description:
     "Find out our latest news and updates from PT Emeta Teknologi Indonesia.",
   alternates: { canonical: "/blog" },
@@ -69,12 +69,12 @@ export default async function BlogIndexPage() {
       <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== FEATURED (Design 41:1808, 0..1024) ===== */}
-        <section className="bg-paper pt-[57px]">
+        <section className="bg-paper pt-[145px]">
           <div className={CTN}>
             {/* Blue rounded panel (Figma 41:1809, r16) with head + featured cards */}
             <div className="rounded-2xl bg-brand pb-[65px] pt-[120px]">
               <div className="px-[32px]">
-                <h1 className="text-[54px] font-extrabold leading-[1.18] text-paper">
+                <h1 className="text-[54px] font-extrabold leading-[64px] text-paper">
                   Featured
                 </h1>
                 <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
@@ -93,7 +93,7 @@ export default async function BlogIndexPage() {
         {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
         <section id="news" className="bg-paper">
           <div className={`${CTN} pt-[140px]`}>
-            <h2 className="text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+            <h2 className="text-[54px] font-extrabold leading-[64px] text-ink-soft">
               News &amp; Blogs
             </h2>
             <p className="mt-[10px] font-inter text-[18px] text-ink-soft">
@@ -128,7 +128,7 @@ export default async function BlogIndexPage() {
               </div>
               {/* Content at x188 (=32px inside the panel) */}
               <div className="relative z-10 pl-[32px] pt-[122px]">
-                <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[1.15] text-paper">
+                <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[68px] text-paper">
                   Ready to Transform Your <span className="whitespace-nowrap">Business?</span>
                 </h2>
                 <p className="mt-[10px] font-inter text-[18px] text-paper">Here For you</p>

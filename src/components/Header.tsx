@@ -52,7 +52,7 @@ export function Header({
             <Link
               key={l.label}
               href={l.href}
-              className={`text-[15px] font-medium transition-colors ${
+              className={`font-inter text-[15px] font-medium transition-colors ${
                 dark ? "text-mist hover:text-white" : "text-[#1f2937] hover:text-brand"
               }`}
             >
@@ -62,7 +62,7 @@ export function Header({
         </nav>
         <a
           href="/#contact"
-          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] text-[16px] font-semibold ${
+          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] font-inter text-[16px] font-semibold ${
             dark ? "bg-brand text-paper hover:bg-[#1450b5]" : "bg-brand text-white hover:bg-[#1450b5]"
           }`}
         >
