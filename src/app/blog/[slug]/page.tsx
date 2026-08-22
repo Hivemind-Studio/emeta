@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: { absolute: "Artikel Tidak Ditemukan | PT Emeta Teknologi Indonesia" } };
-  const title = { absolute: `${post.title} | PT Emeta Teknologi Indonesia` };
+  const title = post.title;
   const description = post.excerpt;
   const ogImage = post.imageUrl ? buildAssetUrl(post.imageUrl) : `${SITE_URL}/images/og-cover.jpg`;
   return {

@@ -20,7 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? product.description.slice(0, 150).replace(/\s+\S*$/, "") + "…"
     : product.description;
   return {
-    title: `${product.title} | Emeta`,
+    // Root layout template appends "| Emeta"
+    title: product.title,
     description: shortDesc,
     alternates: { canonical: `/products/${product.slug}` },
     openGraph: {
