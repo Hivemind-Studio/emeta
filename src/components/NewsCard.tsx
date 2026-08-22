@@ -24,9 +24,9 @@ export function NewsCard({
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
+      className="group flex h-[326px] flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
     >
-      <div className={`relative ${big ? "h-[206px]" : "h-[206px]"} overflow-hidden`}>
+      <div className="relative h-[206px] shrink-0 overflow-hidden">
         {post.imageUrl ? (
           <Image
             src={buildAssetUrl(post.imageUrl)}
@@ -42,12 +42,12 @@ export function NewsCard({
         )}
       </div>
       {/* ctn per Figma: pad-left/right 12, Title y651(-639=12), desc +32, ReadMore +64 */}
-      <div className="px-[12px] py-[12px]">
-        <h3 className={`text-[20px] font-bold leading-none text-ink-soft ${big ? "" : ""}`}>
+      <div className="flex min-h-0 flex-1 flex-col px-[12px] py-[12px]">
+        <h3 className={`line-clamp-2 text-[20px] font-bold leading-[26px] text-ink-soft ${big ? "" : ""}`}>
           {post.title}
         </h3>
         <p className="mt-[4px] line-clamp-1 text-[16px] leading-[28px] text-ink-soft">{post.excerpt}</p>
-        <p className="mt-[0px] text-[16px] font-bold leading-[28px] text-brand">Read More</p>
+        <p className="mt-auto text-[16px] font-bold leading-[28px] text-brand">Read More</p>
       </div>
     </Link>
   );

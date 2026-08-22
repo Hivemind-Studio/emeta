@@ -253,7 +253,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* Find More / Here blue card (design 41:2196) */}
               <Link
                 href="/blog"
-                className="group relative flex h-[326px] w-[247px] flex-col items-center justify-center self-start overflow-hidden rounded-2xl bg-brand"
+                className="group relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl bg-brand"
               >
                 {/* blurry blue circle bg — top-right behind text (per Figma 41:2197, 210px at rel x132 y52) */}
                 <span

@@ -150,7 +150,7 @@ export default async function HomePage() {
                 </div>
               ))}
               {/* More card */}
-              <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)] self-start">
+              <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
                 {/* blurry blue circle bg — top-right behind text (Figma 41:1560, LAYER_BLUR 100) */}
                 <span
                   className="absolute h-[209px] w-[209px] rounded-full bg-brand-light opacity-30 blur-[100px]"
