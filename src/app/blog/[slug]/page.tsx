@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* Hero image */}
-        <div className="bg-paper pt-[21px]">
+        <div className="bg-paper pt-[109px]">
           <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0">
             <div className="relative aspect-[1128/546] overflow-hidden">
               {post.imageUrl ? (
@@ -80,8 +80,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Article content */}
-        <article className="bg-paper pt-[34px] pb-16">
-          <div className="mx-auto w-full max-w-[744px] px-6 md:px-0">
+        <article className="bg-paper pt-[21px] pb-16">
+          <div className="mx-auto min-h-[1133px] w-full max-w-[744px] px-6 md:px-0">
             <h1 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
               {post.title}
             </h1>
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* ===== Another (related) ===== */}
         <section className="bg-paper pb-16">
-          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0">
+          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0 pt-[265px]">
             <h2 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
               Another
             </h2>

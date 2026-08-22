@@ -72,7 +72,7 @@ export default async function BlogIndexPage() {
         <section className="bg-paper pt-[145px]">
           <div className={CTN}>
             {/* Blue rounded panel (Figma 41:1809, r16) with head + featured cards */}
-            <div className="rounded-2xl bg-brand pb-[65px] pt-[120px]">
+            <div className="rounded-2xl bg-brand pb-[120px] pt-[120px]">
               <div className="px-[32px]">
                 <h1 className="text-[54px] font-extrabold leading-[64px] text-paper">
                   Featured
