@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import { brandUrl } from "@/lib/brandAssets";
 import { getSettings } from "@/lib/data";
@@ -38,9 +39,9 @@ export default async function ComingSoonPage() {
                 {settings.comingSoonQuote}
               </p>
               <div className="mt-[27px]">
-                <a href="/" className="inline-flex h-[47px] w-[120px] items-center justify-center rounded-[8px] bg-brand-light font-inter text-[16px] font-semibold text-white transition-transform active:scale-95">
+                <Link href="/" className="inline-flex h-[47px] w-[120px] items-center justify-center rounded-[8px] bg-brand-light font-inter text-[16px] font-semibold text-white transition-transform active:scale-95">
                   Go Back
-                </a>
+                </Link>
               </div>
             </div>
           </div>
