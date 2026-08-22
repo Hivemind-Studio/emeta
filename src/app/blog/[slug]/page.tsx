@@ -192,7 +192,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span className="mx-2">›</span>
               <span className="text-ink">{post.title}</span>
             </nav>
-            <h1 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
+            <h1 className="font-sans text-[32px] font-extrabold leading-[42px] text-ink-soft md:text-[54px] md:leading-[64px]">
               {post.title}
             </h1>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink">
@@ -213,12 +213,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* ===== Related articles ===== */}
         <section className="bg-paper pb-16">
-          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0 pt-[120px]">
-            <h2 className="font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
+          <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0 pt-[80px] md:pt-[120px]">
+            <h2 className="font-sans text-[34px] font-extrabold leading-[44px] text-ink-soft md:text-[54px] md:leading-[64px]">
               Related Articles
             </h2>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">Find out our latest news and updates</p>
-            <div className="mt-[34px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4 items-stretch">
+            <div className="mt-[34px] grid grid-cols-1 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4 items-stretch">
               {morePosts
                 .filter((mp) => mp.slug !== post!.slug)
                 .slice(0, 3)

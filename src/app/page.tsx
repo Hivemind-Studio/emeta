@@ -46,7 +46,7 @@ export default async function HomePage() {
       <Header brandName={settings.brandName} variant="dark" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== HERO (Design 20:1383, 0..1024) ===== */}
-        <section className="relative h-[1024px] overflow-hidden bg-[#fafafa]">
+        <section className="relative h-[720px] overflow-hidden bg-[#fafafa] md:h-[1024px]">
           {/* Decorative layer — everything inside is clipped by the hero box */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             {/* Background bleeds past BOTH edges proportionally (-13.2% / 126.4% = Figma -190px/1820px
@@ -61,7 +61,7 @@ export default async function HomePage() {
             </div>
           </div>
           <div className={`${CTN} relative z-10`}>
-              <h1 className="max-w-[533px] pt-[384px] text-[54px] font-extrabold leading-[64px] text-paper">
+              <h1 className="max-w-[533px] pt-[220px] text-[38px] font-extrabold leading-[46px] text-paper md:pt-[384px] md:text-[54px] md:leading-[64px]">
                 {settings.heroTitle}
               </h1>
               <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
@@ -72,10 +72,10 @@ export default async function HomePage() {
         </section>
 
         {/* ===== ABOUT (Design 20:1403, 1024..1536) ===== */}
-        <section id="about" className="h-[512px] bg-paper">
+        <section id="about" className="bg-paper md:h-[512px]">
           <div className={`${CTN}`}>
             <div className="flex items-start justify-between gap-10 pt-[84px]">
-              <h2 className="w-[533px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+              <h2 className="w-full max-w-[533px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:w-[533px] md:text-[54px]">
                 {settings.aboutTitle}
               </h2>
               <div className="w-[360px]">
@@ -100,20 +100,20 @@ export default async function HomePage() {
 
         {/* ===== PRODUCTS (Offerings, 1536..2560) — hidden entirely when toggle off ===== */}
         {showProducts && (
-        <section id="products" className="h-[1024px] bg-paper">
+        <section id="products" className="bg-paper py-[100px] md:h-[1024px] md:py-0">
           <div className={`${CTN}`}>
             <div className="flex flex-col items-center pt-[267px] text-center">
               <span className="inline-flex h-[30px] items-center rounded-full bg-[#e7edf7] px-[16px] text-[14px] font-semibold uppercase text-brand">
                 {settings.offeringsEyebrow}
               </span>
-              <h2 className="mt-[24px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+              <h2 className="mt-[24px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:text-[54px]">
                 {settings.offeringsTitle}
               </h2>
               <p className="mt-[2px] font-inter text-[18px] text-ink-soft">
                 {settings.offeringsSubtitle}
               </p>
             </div>
-            <div className="mt-[32px] flex justify-between">
+            <div className="mt-[32px] flex flex-col gap-[24px] justify-between md:flex-row">
               {products.map((p) => (
                 <Link key={p.id} href={`/products/${p.slug}`} className="group block h-[319px] w-[360px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)]">
                   <div className="mx-[16px] mt-[16px] flex h-[64px] shrink-0 items-center gap-3 rounded-[6px] bg-brand px-2">
@@ -135,15 +135,15 @@ export default async function HomePage() {
         )}
 
         {/* ===== NEWS & BLOGS (41:1550, 2560..3584) ===== */}
-        <section id="news" className="h-[1024px] bg-paper">
+        <section id="news" className="bg-paper py-[100px] md:h-[1024px] md:py-0">
           <div className={`${CTN}`}>
-            <h2 className="max-w-[533px] pt-[233px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+            <h2 className="max-w-[533px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[233px] md:text-[54px]">
               {settings.newsEyebrow}
             </h2>
             <p className="mt-[4px] font-inter text-[18px] text-ink-soft">
               {settings.newsSubtitle}
             </p>
-            <div className="mt-[68px] flex justify-between">
+            <div className="mt-[68px] flex flex-col gap-[24px] justify-between md:flex-row">
               {posts.map((p) => (
                 <div key={p.id} className="w-[269px]">
                   <NewsCard post={p} />

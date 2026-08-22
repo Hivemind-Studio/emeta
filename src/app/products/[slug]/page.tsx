@@ -82,9 +82,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <main className="flex-1 bg-paper">
         {/* ===== TOP SECTION (Figma 41:2480 News, 0..867) ===== */}
         <section className="bg-paper">
-          <div className="mx-auto flex w-full max-w-[1128px] pb-[87px] pt-[159px] md:px-0">
+          <div className="mx-auto flex w-full max-w-[1128px] flex-col items-start pb-[87px] pt-[64px] md:flex-row md:items-stretch md:pb-[87px] md:pt-[159px] md:px-0">
             {/* Pic — left, 564x546, square corners per design */}
-            <div className="relative h-[546px] w-[564px] shrink-0 overflow-hidden bg-[#b3b3b3]">
+            <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#b3b3b3] md:h-[546px] md:w-[564px]">
               {product.iconUrl ? (
                 <Image
                   src={buildAssetUrl(product.iconUrl)}
@@ -102,7 +102,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
 
             {/* Content — right column at x748 (= 156+564+28 gap), title baseline y175 */}
-            <div className="w-[520px] shrink-0 grow-0 ml-[28px] pt-[16px]">
+            <div className="mt-[40px] w-full shrink-0 grow-0 text-[18px] leading-[28px] md:ml-[28px] md:mt-0 md:w-[520px] md:text-base">
               <h1 className="max-w-[533px] font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
                 {product.title}
               </h1>

@@ -27,7 +27,7 @@ export async function Footer({ settings }: { settings: SiteSettings }) {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1128px] px-6 md:px-0">
-        <p className="w-[456px] pt-[366px] text-base leading-relaxed text-white">
+        <p className="w-full max-w-[456px] pt-[120px] text-base leading-relaxed text-white md:pt-[366px]">
           Empowering businesses across Indonesia by distributing high-performance AI
           technologies and optimized cloud software.
         </p>

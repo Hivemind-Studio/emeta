@@ -12,7 +12,7 @@ import { ContactForm } from "@/components/ContactForm";
  */
 export function CtaSection({ settings }: { settings: SiteSettings }) {
   return (
-    <section className="h-[512px] bg-paper pt-[90px]">
+    <section className="bg-paper pt-[60px] md:h-[512px] md:pt-[90px]">
       <div className="mx-auto w-full max-w-[1128px] md:px-0">
         <div className="relative flex h-[332px] items-center justify-between overflow-hidden rounded-2xl bg-brand">
           {/* Decorative layer — clipped to the CTA box */}
@@ -28,7 +28,7 @@ export function CtaSection({ settings }: { settings: SiteSettings }) {
           </div>
           {/* content left-aligned x188 */}
           <div className="relative z-10 pl-[32px] pt-[32px]">
-            <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[1.15] text-paper">
+            <h2 className="max-w-[800px] text-[30px] font-extrabold leading-[1.15] text-paper md:text-[54px]">
               {settings.ctaTitle}
             </h2>
             <p className="mt-[32px] font-inter text-[18px] text-paper">{settings.ctaSubtitle}</p>
@@ -53,12 +53,12 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
   return (
     <section id="contact" className="min-h-[1024px] bg-paper">
       <div className="mx-auto w-full max-w-[1128px] md:px-0">
-        <h2 className="pt-[193px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+        <h2 className="pt-[80px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[193px] md:text-[54px]">
           {settings.contactTitle}
         </h2>
-        <div className="mt-[64px] flex justify-between pb-[60px]">
+        <div className="mt-[64px] flex w-full max-w-[572px] flex-col justify-between gap-[40px] md:flex-row md:gap-0">
           {/* Left info + live Google Map (Ruko WTC Matahari Serpong) */}
-          <div className="w-[492px]">
+          <div className="w-full md:max-w-[492px]">
             <div className="space-y-[32px]">
               {[
                 { k: "Our Office", v: settings.officeAddress },
@@ -81,7 +81,7 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
               />
             </div>
           </div>
-          <div className="w-[572px] rounded-[20px] bg-brand-soft px-[40px] py-[40px]">
+          <div className="w-full rounded-[20px] bg-brand-soft px-[24px] py-[32px] md:w-[572px] md:max-w-[572px] md:px-[40px] md:py-[40px]">
             <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
             <ContactForm />
           </div>

@@ -72,12 +72,12 @@ export default async function BlogIndexPage({
       <main className="flex-1">
         {/* ===== FEATURED (Design 41:1808, 0..1024) ===== */}
         {page === 1 && (
-        <section className="bg-paper pt-[145px]">
+        <section className="bg-paper pt-[110px] md:pt-[145px]">
           <div className={CTN}>
             {/* Blue rounded panel (Figma 41:1809, r16) with head + featured cards */}
-            <div className="rounded-2xl bg-brand pb-[120px] pt-[120px]">
+            <div className="rounded-2xl bg-brand pb-[60px] pt-[60px] md:pb-[120px] md:pt-[120px]">
               <div className="px-[32px]">
-                <h2 className="text-[54px] font-extrabold leading-[64px] text-paper">
+                <h2 className="text-[34px] font-extrabold leading-[44px] text-paper md:text-[54px] md:leading-[64px]">
                   Featured
                 </h2>
                 <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
@@ -96,14 +96,14 @@ export default async function BlogIndexPage({
 
         {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
         <section id="news" className="bg-paper">
-          <div className={`${CTN} ${page === 1 ? "pt-[300px]" : "pt-[145px]"}`}>
-            <h1 className="max-w-[400px] text-[54px] font-extrabold leading-[64px] text-ink-soft">
+          <div className={`${CTN} ${page === 1 ? "pt-[80px]" : "pt-[110px]"} md:${page === 1 ? "pt-[300px]" : "pt-[145px]"}`}>
+            <h1 className="max-w-[400px] text-[34px] font-extrabold leading-[44px] text-ink-soft md:text-[54px] md:leading-[64px]">
               News &amp;<br />Blogs
             </h1>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">
               Find out our latest news and updates
             </p>
-            <div className="mt-[64px] grid grid-cols-2 gap-x-[24px] gap-y-[64px] sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-[64px] grid grid-cols-1 gap-x-[24px] gap-y-[64px] sm:grid-cols-2 lg:grid-cols-4">
               {posts.slice(0, 8).map((p) => (
                 <div key={p.id}>
                   <NewsCard post={p} />
