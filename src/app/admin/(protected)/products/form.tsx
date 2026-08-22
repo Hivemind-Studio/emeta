@@ -1,7 +1,7 @@
 "use client";
 
 import { updateProduct, deleteProduct } from "./actions";
-import { ConfirmSubmit, DangerSubmit } from "@/components/admin/ConfirmSubmit";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 
 function Field({ name, label, defaultValue, placeholder }: { name: string; label: string; defaultValue?: string; placeholder?: string }) {
