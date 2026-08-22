@@ -143,14 +143,14 @@ export default async function HomePage() {
             <p className="mt-[4px] font-inter text-[18px] text-ink-soft">
               {settings.newsSubtitle}
             </p>
-            <div className="mt-[40px] flex flex-col gap-[24px] justify-between md:mt-[64px] md:flex-row">
+            <div className="mt-[40px] grid grid-cols-1 gap-x-[24px] gap-y-[40px] sm:grid-cols-2 md:mt-[64px] lg:grid-cols-4">
               {posts.map((p) => (
-                <div key={p.id} className="w-[269px]">
+                <div key={p.id}>
                   <NewsCard post={p} />
                 </div>
               ))}
               {/* More card */}
-              <Link href="/blog" className="relative flex h-[400px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
+              <Link href="/blog" className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)] lg:w-[247px]">
                 {/* blurry blue circle bg — top-right behind text (Figma 41:1560, LAYER_BLUR 100) */}
                 <span
                   className="absolute h-[209px] w-[209px] rounded-full bg-brand-light opacity-30 blur-[100px]"
