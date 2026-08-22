@@ -1,6 +1,7 @@
 import { getSettings } from "@/lib/data";
 import { updateSettings } from "./actions";
 import { ImageUploader } from "@/components/admin/ImageUploader";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 
 export const metadata = { title: "Pengaturan | PT Emeta Teknologi Indonesia" };
 
@@ -95,7 +96,12 @@ export default async function AdminSettingsPage() {
           </div>
         </div>
 
-        <button className="btn-brand px-6 py-3 text-sm">Simpan Pengaturan</button>
+        <ConfirmSubmit
+          label="Simpan Pengaturan"
+          pendingLabel="Menyimpan…"
+          checkText="Saya yakin menerapkan semua perubahan pengaturan ini"
+          confirmDialog="Terapkan perubahan pengaturan ke seluruh situs?"
+        />
       </form>
     </div>
   );

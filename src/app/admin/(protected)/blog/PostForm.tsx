@@ -2,6 +2,7 @@
 
 import type { BlogPost } from "@/generated/prisma/client";
 import { ImageUploader } from "@/components/admin/ImageUploader";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 
 export function PostForm({
   action,
@@ -27,7 +28,7 @@ export function PostForm({
           />
         </Field>
 
-        <ImageUploader name="imageUrl" label="Gambar Artikel" defaultValue={post?.imageUrl} />
+        <ImageUploader name="imageUrl" label="Gambar Artikel (upload atau tempel URL)" defaultValue={post?.imageUrl} />
 
         <Field label="Ringkasan (excerpt)" htmlFor="excerpt">
           <textarea
@@ -59,9 +60,13 @@ export function PostForm({
         Featured (tampil di hero blog)
       </label>
 
-      <button type="submit" className="btn-navy px-6 py-3 text-sm">
-        {submitLabel}
-      </button>
+      <ConfirmSubmit
+        label={submitLabel}
+        confirmLabel={submitLabel}
+        pendingLabel="Menyimpan…"
+        checkText={post ? "Saya yakin memperbarui artikel ini" : "Saya yakin membuat artikel ini"}
+        confirmDialog={post ? "Simpan perubahan artikel?" : "Buat artikel ini?"}
+      />
     </form>
   );
 }
@@ -72,7 +77,7 @@ function Field({
   children,
 }: {
   label: string;
-  htmlFor: string;
+  htmlFor?: string;
   children: React.ReactNode;
 }) {
   return (

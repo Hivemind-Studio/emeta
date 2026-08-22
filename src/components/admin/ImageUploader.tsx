@@ -5,25 +5,31 @@ import Image from "next/image";
 import { buildAssetUrl } from "@/lib/storage/url";
 
 /**
- * Reusable admin image uploader.
- * - Shows the current image if a key is already set.
- * - Lets the user pick a file, uploads it to the CDN, and stores the returned
- *   KEY in a hidden <input name={name}> so the surrounding server action saves it.
+ * Reusable admin image field.
+ * - Upload a file to the CDN (stored as a key), OR paste an external URL.
+ * - Hidden <input name={name}> carries the final value (CDN key or URL) to the server action.
  */
 export function ImageUploader({
   name,
   label,
   defaultValue = "",
+  allowUrl = true,
 }: {
   name: string;
   label: string;
   defaultValue?: string | null;
+  /** show the "or paste URL" input (default true) */
+  allowUrl?: boolean;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [key, setKey] = useState(defaultValue || "");
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState<string | null>(key ? buildAssetUrl(key) : null);
+
+  function isExternal(v: string) {
+    return /^https?:\/\//i.test(v);
+  }
 
   async function handleFile(file: File) {
     setError("");
@@ -53,7 +59,7 @@ export function ImageUploader({
   return (
     <div>
       <span className="mb-2 block text-sm font-semibold text-ink">{label}</span>
-      {/* the form value — this hidden input carries the storage key to the server action */}
+      {/* the form value — hidden input carries the storage key / URL to the server action */}
       <input type="hidden" name={name} value={key} />
 
       <div className="flex items-start gap-4">
@@ -82,6 +88,28 @@ export function ImageUploader({
               }}
             />
           </label>
+
+          {allowUrl && (
+            <div className="mt-2">
+              <span className="block text-xs font-medium text-graphite">atau tempel URL gambar:</span>
+              <div className="mt-1 flex gap-2">
+                <input
+                  type="url"
+                  placeholder="https://…"
+                  defaultValue={isExternal(key) ? key : ""}
+                  onChange={(e) => {
+                    const v = e.target.value.trim();
+                    if (v) {
+                      setKey(v);
+                      setPreview(v);
+                    }
+                  }}
+                  className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand"
+                />
+              </div>
+            </div>
+          )}
+
           <p className="mt-2 text-xs text-mist">JPG, PNG, WebP, GIF, AVIF. Maks 12MB.</p>
           {uploading && <p className="mt-1 text-xs text-navy">Mengunggah…</p>}
           {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
