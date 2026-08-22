@@ -92,9 +92,9 @@ export default async function BlogIndexPage() {
 
         {/* ===== NEWS & BLOGS grid (41:2230, 1024..2641) ===== */}
         <section id="news" className="bg-paper">
-          <div className={`${CTN} pt-[140px]`}>
+          <div className={`${CTN} pt-[300px]`}>
             <h2 className="max-w-[400px] text-[54px] font-extrabold leading-[64px] text-ink-soft">
-              News &amp; Blogs
+              News &amp;<br />Blogs
             </h2>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink-soft">
               Find out our latest news and updates
