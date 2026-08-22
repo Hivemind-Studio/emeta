@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { DemoMessageFiller } from "@/components/DemoMessageFiller";
 import { ProductTags } from "@/components/ProductTags";
+import { NewsCard } from "@/components/NewsCard";
 import { CtaSection, ContactSection } from "@/components/CtaContact";
 import { getSettings, getProducts, getFeaturedPosts } from "@/lib/data";
 import { brandUrl } from "@/lib/brandAssets";
@@ -144,22 +145,9 @@ export default async function HomePage() {
             </p>
             <div className="mt-[68px] flex justify-between">
               {posts.map((p) => (
-                <Link key={p.id} href={`/blog/${p.slug}`} className="group block h-[326px] w-[269px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
-                  <div className="relative h-[206px] w-[269px] overflow-hidden bg-[#b3b3b3]">
-                    {p.imageUrl ? (
-                      <Image src={buildAssetUrl(p.imageUrl)} alt={p.title} fill className="object-cover" sizes="269px" />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <span className="font-inter text-[18px] font-bold text-line">Place Holder</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-[12px]">
-                    <h3 className="text-[20px] font-bold leading-[28px] text-ink-soft">{p.title}</h3>
-                    <p className="line-clamp-2 text-[16px] leading-[28px] text-ink-soft">{p.excerpt}</p>
-                    <p className="mt-[4px] text-[16px] font-bold text-brand">Read More</p>
-                  </div>
-                </Link>
+                <div key={p.id} className="w-[269px]">
+                  <NewsCard post={p} />
+                </div>
               ))}
               {/* More card */}
               <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)] self-start">
