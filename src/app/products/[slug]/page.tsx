@@ -84,7 +84,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <section className="bg-paper">
           <div className="mx-auto flex w-full max-w-[1128px] flex-col items-start pb-[87px] pt-[64px] md:flex-row md:items-stretch md:pb-[87px] md:pt-[159px] md:px-0">
             {/* Pic — left, 564x546, square corners per design */}
-            <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#b3b3b3] md:h-[546px] md:w-[564px]">
+            <div className="relative aspect-[564/546] w-full shrink-0 overflow-hidden bg-brand md:aspect-auto md:h-[546px] md:w-[564px]">
               {product.iconUrl ? (
                 <Image
                   src={buildAssetUrl(product.iconUrl)}
@@ -95,8 +95,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   sizes="564px"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-inter text-[18px] font-bold text-line">Place Holder</span>
+                <div className="absolute inset-0">
+                  <Image src="/images/og-cover.jpg" alt="" fill className="object-cover" sizes="564px" />
                 </div>
               )}
             </div>
