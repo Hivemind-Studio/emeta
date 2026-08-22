@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CtaSection, ContactSection } from "@/components/CtaContact";
 import { getSettings, getFeaturedPosts, getPublishedPostsPage } from "@/lib/data";
-import { brandUrl } from "@/lib/brandAssets";
 import { buildAssetUrl } from "@/lib/storage/url";
 
 export const dynamic = "force-dynamic";
@@ -109,84 +109,9 @@ export default async function BlogIndexPage() {
           </div>
         </section>
 
-        {/* ===== CTA (41:2441, 2641..3153) ===== */}
-        <section className="bg-paper pt-[90px]">
-          <div className={CTN}>
-            <div className="relative h-[332px] overflow-hidden rounded-2xl bg-brand">
-              {/* Decorative layer — clipped to the CTA box */}
-              <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-                {/* Blob artwork (41:2443, 1294x920) — relative to CTA box */}
-                <div className="absolute" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
-                  <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1128px" />
-                </div>
-                {/* Blurred white icon (41:2449) — right side */}
-                <div className="absolute right-[16px] top-[-18px] opacity-30" style={{ width: 411, height: 411 }}>
-                  <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
-                </div>
-              </div>
-              {/* Content at x188 (=32px inside the panel) */}
-              <div className="relative z-10 pl-[32px] pt-[122px]">
-                <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[68px] text-paper">
-                  Ready to Transform Your <span className="whitespace-nowrap">Business?</span>
-                </h2>
-                <p className="mt-[10px] font-inter text-[18px] text-paper">Here For you</p>
-                <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
-                  Book a Demo
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== CONTACT (86:259, 3153..4177) ===== */}
-        <section id="contact" className="min-h-[1024px] bg-paper">
-          <div className={`${CTN} pt-[193px]`}>
-            <h2 className="text-[54px] font-extrabold leading-[1.18] text-ink-soft">Contact Us</h2>
-            <div className="mt-[128px] flex justify-between pb-[60px]">
-              {/* Left info + map */}
-              <div className="w-[492px]">
-                <div className="space-y-[32px]">
-                  {[
-                    { k: "Our Office", v: settings.officeAddress },
-                    { k: "Phone", v: settings.phoneDisplay },
-                    { k: "Email Support", v: settings.emailSupport },
-                  ].map((c) => (
-                    <div key={c.k}>
-                      <p className="text-[18px] font-bold text-brand">{c.k}</p>
-                      <p className="mt-[6px] text-[16px] leading-[1.5] text-ink">{c.v}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="relative mt-[40px] h-[240px] w-[492px] overflow-hidden rounded-lg">
-                  <Image src={brandUrl("contactMap")} alt="" fill className="object-cover" sizes="492px" />
-                </div>
-              </div>
-
-              {/* Right form panel (#f3f8ff r20) */}
-              <div className="w-[572px] rounded-[20px] bg-brand-soft p-[40px]">
-                <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-                <form className="mt-[28px] space-y-[16px]" action="/api/inquiry" method="POST">
-                  {(["Name", "Email", "Message"] as const).map((label) => (
-                    <div key={label}>
-                      <label className="text-[14px] font-semibold text-graphite">{label}</label>
-                      {label === "Message" ? (
-                        <textarea name="message" required placeholder="Describe your requirements..." rows={3}
-                          className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                      ) : (
-                        <input type={label === "Email" ? "email" : "text"} name={label.toLowerCase()} required
-                          placeholder={label === "Name" ? "Your name" : "your@email.com"}
-                          className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                      )}
-                    </div>
-                  ))}
-                  <button type="submit" className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
-                    Submit Inquiry
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ===== CTA + CONTACT — shared components (same as homepage) ===== */}
+        <CtaSection settings={settings} />
+        <ContactSection settings={settings} />
       </main>
       <Footer settings={settings} />
     </div>
