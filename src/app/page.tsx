@@ -65,7 +65,9 @@ export default async function HomePage() {
               <h1 className="max-w-[533px] pt-[220px] text-[38px] font-extrabold leading-[46px] text-paper md:pt-[384px] md:text-[54px] md:leading-[64px]">
                 {settings.heroTitle}
               </h1>
-              <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
+              {/* Figma rhythm: headline → 27px gap → body (2 lines) → 27px gap → form.
+                  The mobile headline wraps to more lines, so tighten the gaps there. */}
+              <p className="mt-[16px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88 md:mt-[27px]">
                 {settings.heroBody}
               </p>
               <NewsletterForm />

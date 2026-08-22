@@ -35,7 +35,7 @@ export function NewsletterForm() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex flex-col gap-[12px] sm:flex-row sm:gap-0" noValidate>
+      <form onSubmit={onSubmit} className="mt-[16px] flex flex-col gap-[12px] sm:flex-row sm:gap-0 md:mt-[27px]" noValidate>
         <input
           type="email"
           placeholder="Email"
