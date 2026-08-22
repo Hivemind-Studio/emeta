@@ -82,9 +82,9 @@ export default async function BlogIndexPage({
                 </h2>
                 <p className="mt-[12px] font-inter text-[18px] text-paper">News and Blogs</p>
               </div>
-              <div className="mt-[64px] flex flex-wrap justify-between gap-[24px] px-[32px]">
+              <div className="mt-[64px] flex flex-wrap justify-center gap-[24px] px-[16px] md:justify-between md:px-[32px]">
                 {featured.map((p) => (
-                  <div key={p.id} className="w-[520px] max-w-full">
+                  <div key={p.id} className="w-full max-w-[520px] md:w-[520px]">
                     <NewsCard post={p} big />
                   </div>
                 ))}
