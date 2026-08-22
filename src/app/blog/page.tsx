@@ -105,7 +105,7 @@ export default async function BlogIndexPage({
             </p>
             <div className="mt-[64px] grid grid-cols-1 gap-x-[24px] gap-y-[64px] sm:grid-cols-2 lg:grid-cols-4">
               {posts.slice(0, 8).map((p) => (
-                <div key={p.id}>
+                <div key={p.id} className="reveal">
                   <NewsCard post={p} />
                 </div>
               ))}

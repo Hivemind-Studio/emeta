@@ -14,15 +14,20 @@ export function CtaSection({ settings }: { settings: SiteSettings }) {
   return (
     <section className="bg-paper pt-[60px] md:h-[512px] md:pt-[90px]">
       <div className="mx-auto w-full max-w-[1128px] md:px-0">
-        <div className="relative flex h-[332px] items-center justify-between overflow-hidden rounded-2xl bg-brand">
+        <div className="motion-cta relative flex h-[332px] items-center justify-between overflow-hidden rounded-2xl bg-brand">
           {/* Decorative layer — clipped to the CTA box */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-            {/* CTA blob artwork (Figma 20:1433, 1294x920) — relative to CTA box */}
-            <div className="absolute opacity-60 md:opacity-100" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
+            {/* CTA blob artwork (Figma 20:1433, 1294x920) — relative to CTA box.
+                Blobs drift at individual rates on scroll (desktop, motion-safe). */}
+            <div className="motion-blob-1 absolute opacity-60 md:opacity-100" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
               <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1294px" />
             </div>
-            {/* Blurred white icon (Figma 20:1439) — relative to CTA box, right side */}
-            <div className="absolute right-0 top-[-18px] opacity-30 h-[411px] w-[411px]">
+            {/* Extra depth planes: soft light-blue orbs, desktop motion only */}
+            <div className="motion-blob-3 absolute h-[300px] w-[300px] rounded-full bg-brand-light/25 blur-[70px]" style={{ right: 340, top: -80 }} aria-hidden="true" />
+            <div className="motion-blob-4 absolute h-[220px] w-[220px] rounded-full bg-white/15 blur-[60px]" style={{ left: 480, bottom: -90 }} aria-hidden="true" />
+            {/* Blurred white icon (Figma 20:1439) — relative to CTA box, right side.
+                Drifts slower than the panel content on scroll (desktop, motion-safe). */}
+            <div className="motion-blob-2 absolute right-0 top-[-18px] opacity-30 h-[411px] w-[411px]">
               <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain" sizes="411px" />
             </div>
           </div>

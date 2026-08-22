@@ -55,8 +55,9 @@ export default async function HomePage() {
               <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="100vw" />
             </div>
             {/* Blurred white Emeta icon — relative to the hero container
-                (26.25% left, 16.3% top, 98.3% wide = Figma 378/167/1416 in a 1440 frame) */}
-            <div className="absolute" style={{ left: "26.25%", top: "16.31%", width: "98.33%", aspectRatio: "1 / 1" }}>
+                (26.25% left, 16.3% top, 98.3% wide = Figma 378/167/1416 in a 1440 frame).
+                Drifts down slowly on scroll — desktop only, icon overlay never the LCP bg. */}
+            <div className="motion-hero-icon absolute" style={{ left: "26.25%", top: "16.31%", width: "98.33%", aspectRatio: "1 / 1", height: "auto" }}>
               <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-35 blur-[28px]" sizes="1416px" />
             </div>
           </div>
@@ -113,8 +114,9 @@ export default async function HomePage() {
                 {settings.offeringsSubtitle}
               </p>
             </div>
-            <div className="mt-[32px] flex flex-col gap-[24px] justify-between md:flex-row">
+            <div className="reveal-stagger mt-[32px] grid flex-col gap-[24px] justify-between sm:grid-cols-2 md:flex md:flex-row lg:w-auto">
               {products.map((p) => (
+                <div key={p.id} className="reveal">
                 <Link key={p.id} href={`/products/${p.slug}`} className="group block h-[319px] w-full overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)] md:w-[360px]">
                   <div className="mx-[16px] mt-[16px] flex h-[64px] shrink-0 items-center gap-3 rounded-[6px] bg-brand px-2">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-[6px] bg-paper">
@@ -128,6 +130,7 @@ export default async function HomePage() {
                   </p>
                   <p className="shrink-0 px-4 pb-[16px] pt-[16px] text-[16px] font-bold leading-none text-brand">Learn More</p>
                 </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -145,7 +148,7 @@ export default async function HomePage() {
             </p>
             <div className="mt-[40px] grid grid-cols-1 gap-x-[24px] gap-y-[40px] sm:grid-cols-2 md:mt-[64px] lg:grid-cols-4">
               {posts.map((p) => (
-                <div key={p.id}>
+                <div key={p.id} className="reveal">
                   <NewsCard post={p} />
                 </div>
               ))}

@@ -24,8 +24,8 @@ export default async function ComingSoonPage() {
             <div className="absolute inset-y-0" style={{ left: "-13.2%", width: "126.4%" }}>
               <Image src={brandUrl("heroBg")} alt="" fill priority className="object-cover" sizes="100vw" />
             </div>
-            {/* Blurred white icon (41:2663 at x330 → 22.9%, y6743 → -442) */}
-            <div className="absolute" style={{ left: "22.92%", top: -442, width: "98.33%", aspectRatio: "1 / 1" }}>
+            {/* Blurred white icon (41:2663 at x330 → 22.9%, y6743 → -442) — ambient drift on desktop */}
+            <div className="motion-cs-icon absolute" style={{ left: "22.92%", top: -442, width: "98.33%", aspectRatio: "1 / 1", height: "auto" }}>
               <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-50 blur-[40px]" sizes="1416px" />
             </div>
           </div>

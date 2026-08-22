@@ -18,10 +18,8 @@ export async function Footer({ settings }: { settings: SiteSettings }) {
     <footer className="relative overflow-hidden bg-brand text-white md:h-[1024px]">
       {/* Decorative layer — clipped to the footer box; nothing paints outside */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Blurred white Emeta icon — anchored right, sized so the visible
-            emblem never reaches the text column (text ends at ~x694 of 1440).
-            Box: left 45% (x648), width 85% (1224px) → visible emblem ≈ x807+. */}
-        <div className="absolute" style={{ left: "45%", top: -420, width: "85%", aspectRatio: "1 / 1" }}>
+        {/* Blurred white Emeta emblem — anchored right, drifts slowly on scroll (desktop). */}
+        <div className="motion-footer-emblem absolute" style={{ left: "45%", top: -420, width: "85%", aspectRatio: "1 / 1", height: "auto" }}>
           <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-60 blur-[26px]" sizes="1224px" />
         </div>
       </div>

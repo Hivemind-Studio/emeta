@@ -1,0 +1,110 @@
+/*
+ * Emeta scroll motion — CSS scroll-driven parallax + reveals.
+ * Technique 1 (animation-timeline: view()) per the parallax-scroll skill.
+ *
+ * Structure:
+ *   1. Baseline static styles (no motion) — always applied
+ *   2. @supports guard — effects only where scroll-driven animations exist
+ *   3. Desktop gate — sustained parallax is desktop-only; mobile gets reveals only
+ *   4. prefers-reduced-motion — everything neutralized back to static
+ *
+ * Rules honored: transform/opacity only, `both` fill, linear timing,
+ * no animation-duration on scroll timelines, decorative layers only.
+ */
+
+/* ---------- keyframes ---------- */
+
+@keyframes emeta-drift {
+  from { translate: 0 calc(var(--travel, 40px) * -1); }
+  to   { translate: 0 var(--travel, 40px); }
+}
+
+@keyframes emeta-drift-x {
+  from { translate: calc(var(--travel-x, 30px) * -1) 0; }
+  to   { translate: var(--travel-x, 30px) 0; }
+}
+
+@keyframes emeta-reveal {
+  from { opacity: 0; translate: 0 28px; scale: 1; }
+  to   { opacity: 1; translate: 0 0;    scale: 1; }
+}
+
+/* ---------- baseline (static): reveal elements are visible by default ----------
+ * Without JS/CSS support nothing hides — content must survive with motion off. */
+
+/* ---------- supported browsers: enable effects ---------- */
+@supports (animation-timeline: view()) {
+
+  /* ===== #1 CTA band blobs — each blob drifts at its own rate ===== */
+  .motion-cta .motion-blob-1 { --travel: 46px; }
+  .motion-cta .motion-blob-2 { --travel: 30px; }
+  .motion-cta .motion-blob-3 { --travel: 56px; }
+  .motion-cta .motion-blob-4 { --travel: 38px; }
+
+  /* ===== #2 Hero blurred icon drift (icon overlay only, never the bg/LCP) ===== */
+  .motion-hero .motion-hero-icon { --travel: 44px; }
+
+  /* ===== #3 Footer emblem + Coming Soon icon (ambient slow drift) ===== */
+  .motion-footer-emblem { --travel: 52px; }
+  .motion-cs-icon { --travel: 48px; }
+
+  /* Apply drift on desktop-width screens only (mobile = reveals only) */
+  @media (min-width: 768px) {
+    .motion-cta .motion-blob-1,
+    .motion-cta .motion-blob-2,
+    .motion-cta .motion-blob-3,
+    .motion-cta .motion-blob-4,
+    .motion-hero .motion-hero-icon,
+    .motion-footer-emblem,
+    .motion-cs-icon {
+      will-change: translate;
+      animation: emeta-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 5% cover 95%;
+    }
+
+    /* CTA blobs also get a slight horizontal spread for depth */
+    .motion-cta .motion-blob-1 { animation-name: emeta-drift-x; --travel-x: 34px; }
+    .motion-cta .motion-blob-3 { animation-name: emeta-drift-x; --travel-x: -28px; }
+  }
+
+  /* ===== #4 Card + section reveals (all breakpoints incl. mobile) ===== */
+  .reveal {
+    animation: emeta-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 60%;
+  }
+
+  /* Stagger within a grid row: nth-child delays via range shift */
+  .reveal-stagger > :nth-child(2).reveal { animation-range: entry 15% entry 65%; }
+  .reveal-stagger > :nth-child(3).reveal { animation-range: entry 20% entry 70%; }
+  .reveal-stagger > :nth-child(4).reveal { animation-range: entry 25% entry 75%; }
+
+  /* Respect reduced motion inside the supports block too */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .motion-cta .motion-blob-1,
+    .motion-cta .motion-blob-2,
+    .motion-cta .motion-blob-3,
+    .motion-cta .motion-blob-4,
+    .motion-hero .motion-hero-icon,
+    .motion-footer-emblem,
+    .motion-cs-icon {
+      animation: none;
+      translate: none;
+      will-change: auto;
+    }
+  }
+}
+
+/* ---------- reduced motion without support (belt & braces) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .motion-cta [class*="motion-blob"],
+  .motion-hero-icon,
+  .motion-footer-emblem,
+  .motion-cs-icon {
+    animation: none !important;
+    translate: none !important;
+  }
+}
