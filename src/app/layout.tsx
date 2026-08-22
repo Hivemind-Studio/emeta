@@ -24,18 +24,43 @@ const sora = Sora({
 const SITE_URL = process.env.SITE_URL || "https://emeta.zeabur.app";
 const OG_IMAGE = `${SITE_URL}/images/og-cover.jpg`;
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "PT Emeta Teknologi Indonesia",
+  alternateName: "Emeta",
+  url: SITE_URL,
+  logo: OG_IMAGE,
+  description:
+    "AI and enterprise software company serving organizations across Indonesia.",
+  foundingDate: "2024",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Ruko WTC Matahari No. 921, Jl. Raya Serpong",
+    addressLocality: "Tangerang Selatan",
+    addressRegion: "Banten",
+    postalCode: "15326",
+    addressCountry: "ID",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@emeta.co.id",
+    contactType: "sales",
+  },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "PT Emeta Teknologi Indonesia | AI & Enterprise Software",
-    template: "%s | PT Emeta Teknologi Indonesia",
+    template: "%s | Emeta",
   },
   description:
     "Bridging world-class AI and enterprise software with growing organizations and established enterprises across Indonesia.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
     url: SITE_URL,
     siteName: "PT Emeta Teknologi Indonesia",
     title: "PT Emeta Teknologi Indonesia | AI & Enterprise Software",
@@ -54,8 +79,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${plusJakarta.variable} ${inter.variable} ${sora.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="en" className={`${plusJakarta.variable} ${inter.variable} ${sora.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd).replace(/</g, "\\u003c") }} />
+        {children}
+      </body>
     </html>
   );
 }

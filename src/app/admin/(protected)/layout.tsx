@@ -1,9 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { logoutAction } from "../actions";
 import { requireAuth } from "@/lib/auth";
 import { getSettings } from "@/lib/data";
 import { Suspense } from "react";
 import { AdminToast } from "@/components/admin/Feedback";
+
+// Belt-and-suspenders with robots.txt Disallow — keep the CMS out of the index.
+export const metadata: Metadata = {
+  title: { absolute: "Admin | PT Emeta Teknologi Indonesia" },
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   await requireAuth();

@@ -61,7 +61,7 @@ export default async function HomePage() {
           </div>
           <div className={`${CTN} relative z-10`}>
               <h1 className="max-w-[533px] pt-[384px] text-[54px] font-extrabold leading-[64px] text-paper">
-                The Best Click Bait In The World
+                {settings.heroTitle}
               </h1>
               <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-[28px] text-white/88">
                 {settings.heroBody}

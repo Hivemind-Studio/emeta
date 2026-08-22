@@ -19,7 +19,7 @@ model GlobalSettings {
   twitterUrl    String  @default("https://twitter.com")
   youtubeUrl    String  @default("https://youtube.com")
   foundedYear   String  @default("2024")
-  heroTitle     String  @default("The Best Click Bait In The World")
+  heroTitle     String  @default("AI & Enterprise Software for Indonesian Enterprises")
   heroBody      String  @default("Bridging world-class AI and enterprise software with growing organizations and established enterprises across Indonesia.")
   aboutTitle    String  @default("PT Emeta Teknologi Indonesia")
   aboutBody     String  @default("Founded in (YEAR) to bridge the gap between world-class artificial intelligence (AI) and both growing organizations and established enterprises.")

@@ -71,14 +71,14 @@ export function Header({
             </Link>
           ))}
         </nav>
-        <a
+        <Link
           href="/#contact"
           className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand font-inter text-[16px] font-semibold text-paper transition-colors hover:bg-[#1450b5] ${
             solid ? "" : "text-white"
           }`}
         >
           Get in Touch
-        </a>
+        </Link>
 
         {/* Mobile menu button */}
         <button

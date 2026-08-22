@@ -1,36 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { brandUrl } from "@/lib/brandAssets";
+import { getProducts } from "@/lib/data";
 import type { SiteSettings } from "@/lib/data";
 
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: "Company",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "About Us", href: "/#about" },
-      { label: "Services", href: "/#services" },
-      { label: "News & Blogs", href: "/blog" },
-    ],
-  },
-  {
-    title: "Products",
-    links: [
-      { label: "WrenAI", href: "/#products" },
-      { label: "BarkingDogAI", href: "/#products" },
-      { label: "AI Amaze", href: "/#products" },
-      { label: "Phison", href: "/#products" },
-    ],
-  },
-];
-
-export function Footer({ settings }: { settings: SiteSettings }) {
+export async function Footer({ settings }: { settings: SiteSettings }) {
   const socials = [
     { href: settings.linkedinUrl, label: "LinkedIn" },
     { href: settings.facebookUrl, label: "Facebook" },
     { href: settings.twitterUrl, label: "Twitter" },
     { href: settings.youtubeUrl, label: "YouTube" },
   ];
+  // Product links point at each product's real detail page (internal linking)
+  const products = await getProducts().catch(() => []);
   // Footer at 1440x1024; content column anchored at left x156.
   return (
     <footer className="relative h-[1024px] overflow-hidden bg-brand text-white">
@@ -50,20 +32,37 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           technologies and optimized cloud software.
         </p>
         <div className="mt-[44px] flex gap-[80px]">
-          {COLUMNS.map((col) => (
-            <div key={col.title} className="w-[180px]">
-              <h4 className="text-[20px] font-semibold text-white">{col.title}</h4>
-              <ul className="mt-[15px] space-y-[8px]">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link href={l.href} className="text-[16px] text-white/95 hover:text-white">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="w-[180px]">
+            <h4 className="text-[20px] font-semibold text-white">Company</h4>
+            <ul className="mt-[15px] space-y-[8px]">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/#about" },
+                { label: "News & Blogs", href: "/blog" },
+              ].map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="text-[16px] text-white/95 hover:text-white">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="w-[180px]">
+            <h4 className="text-[20px] font-semibold text-white">Products</h4>
+            <ul className="mt-[15px] space-y-[8px]">
+              {(products.length > 0
+                ? products.map((p) => ({ label: p.title, href: `/products/${p.slug}` }))
+                : [{ label: "Products & Solutions", href: "/#products" }]
+              ).map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="text-[16px] text-white/95 hover:text-white">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="mt-[36px]">
           <p className="text-[20px] font-semibold text-white">Keep in Touch</p>

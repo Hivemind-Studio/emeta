@@ -15,16 +15,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return { title: { absolute: "Produk Tidak Ditemukan | PT Emeta Teknologi Indonesia" } };
+  // Cut description at a word boundary, not mid-word
+  const shortDesc = product.description.length > 155
+    ? product.description.slice(0, 150).replace(/\s+\S*$/, "") + "…"
+    : product.description;
   return {
-    title: `${product.title} | PT Emeta Teknologi Indonesia`,
-    description: product.description.slice(0, 155),
+    title: `${product.title} | Emeta`,
+    description: shortDesc,
     alternates: { canonical: `/products/${product.slug}` },
     openGraph: {
       type: "website",
       url: `${SITE_URL}/products/${product.slug}`,
       title: product.title,
-      description: product.description.slice(0, 155),
-      images: product.iconUrl ? [{ url: buildAssetUrl(product.iconUrl), alt: product.title }] : undefined,
+      description: shortDesc,
+      images: [{ url: `${SITE_URL}/images/og-cover.jpg`, width: 1200, height: 630, alt: product.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: shortDesc,
+      images: [`${SITE_URL}/images/og-cover.jpg`],
     },
   };
 }
@@ -41,9 +51,32 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const paragraphs = product.description.split(/\n+/).filter(Boolean);
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: product.title,
+    description: product.description.slice(0, 300),
+    url: `${SITE_URL}/products/${product.slug}`,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    image: product.iconUrl ? new URL(buildAssetUrl(product.iconUrl), SITE_URL).href : undefined,
+    brand: { "@type": "Brand", name: settings.brandName },
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/#products` },
+      { "@type": "ListItem", position: 3, name: product.title, item: `${SITE_URL}/products/${product.slug}` },
+    ],
+  };
+
   // Figma geometry (1440 frame): ctn y=159, image x156 w564 h546; text col x748.
   return (
     <div className="flex min-h-screen flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd).replace(/</g, "\\u003c") }} />
       <Header brandName={settings.brandName} variant="light" productsEnabled={settings.productsEnabled} />
       <main className="flex-1 bg-paper">
         {/* ===== TOP SECTION (Figma 41:2480 News, 0..867) ===== */}

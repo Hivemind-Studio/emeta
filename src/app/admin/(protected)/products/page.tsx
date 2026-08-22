@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { Updater } from "./form";
 import { ProductCreateForm } from "./create-form";
-import Link from "next/link";
 
-export const metadata = { title: "Produk | PT Emeta Teknologi Indonesia" };
+export const metadata = {
+  title: "Produk | PT Emeta Teknologi Indonesia",
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({ orderBy: { sortOrder: "asc" } });
