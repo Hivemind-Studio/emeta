@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { createProduct } from "./actions";
-import { Updater, DeleteButton } from "./form";
+import { Updater } from "./form";
 
 export const metadata = { title: "Produk | PT Emeta Teknologi Indonesia" };
 

@@ -28,20 +28,13 @@ export function Updater({ p }: { p: { id: string; title: string; tags: string; d
         </div>
       </div>
       <div className="mt-3 flex gap-3">
-        <button className="btn-brand px-5 py-2 text-sm">Simpan</button>
-        <DeleteButton id={p.id} />
+        {/* Single form, two submit actions — no nested forms (they break hydration & routing) */}
+        <button type="submit" className="btn-brand px-5 py-2 text-sm">Simpan</button>
+        <button type="submit" formAction={deleteProduct}
+          className="rounded-md border border-line-soft px-5 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
+          Hapus
+        </button>
       </div>
-    </form>
-  );
-}
-
-export function DeleteButton({ id }: { id: string }) {
-  return (
-    <form action={deleteProduct} className="inline">
-      <input type="hidden" name="id" value={id} />
-      <button className="rounded-md border border-line-soft px-5 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
-        Hapus
-      </button>
     </form>
   );
 }
