@@ -34,7 +34,7 @@ export function Header({
           : "fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-white shadow-sm"
       }
     >
-      <div className="container-emeta flex h-[88px] items-center justify-between overflow-hidden">
+      <div className="mx-auto flex h-[88px] w-full max-w-[1128px] items-center justify-between overflow-hidden px-6 md:px-0">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src={brandUrl(dark ? "logoWhite" : "logoBlue")}
@@ -47,7 +47,7 @@ export function Header({
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Utama">
+        <nav className="hidden items-center gap-9 lg:flex" aria-label="Utama">
           {LINKS(productsEnabled ? "/#products" : "/coming-soon").map((l) => (
             <Link
               key={l.label}

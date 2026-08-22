@@ -47,11 +47,28 @@ export async function getPublishedPostsPage(
 }
 
 export async function getFeaturedPosts(limit?: number): Promise<BlogItem[]> {
-  return prisma.blogPost.findMany({
+  const featured = await prisma.blogPost.findMany({
     where: { published: true, featured: true },
     orderBy: { createdAt: "desc" },
     take: limit,
   });
+  // If fewer featured posts exist than requested, backfill with the latest published ones
+  if (limit && featured.length < limit) {
+    const ids = new Set(featured.map((p) => p.id));
+    const filler = await prisma.blogPost.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      take: limit * 2,
+    });
+    for (const p of filler) {
+      if (featured.length >= limit) break;
+      if (!ids.has(p.id)) {
+        featured.push(p);
+        ids.add(p.id);
+      }
+    }
+  }
+  return featured;
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogItem | null> {

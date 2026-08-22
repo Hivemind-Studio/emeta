@@ -68,14 +68,14 @@ export default async function HomePage() {
               <h1 className="max-w-[533px] text-[54px] font-extrabold leading-[1.78] text-paper">
                 The Best Click Bait In The World
               </h1>
-              <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-normal text-white">
+              <p className="mt-[27px] max-w-[533px] font-inter text-[18px] leading-normal text-white/88">
                 {settings.heroBody}
               </p>
               <form className="mt-[27px] flex" action="/#contact">
                 <input type="email" placeholder="Email" name="email"
-                  className="h-[48px] w-[360px] rounded-l-[8px] border-none bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite" />
+                  className="mr-[19px] h-[48px] w-[360px] rounded-[8px] border border-[#e5e7eb] bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite" />
                 <button type="submit"
-                  className="inline-flex h-[47px] w-[154px] items-center justify-center rounded-r-[8px] bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee]">
+                  className="inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee]">
                   Get in Touch
                 </button>
               </form>
@@ -86,7 +86,7 @@ export default async function HomePage() {
         {/* ===== ABOUT (Design 20:1403, 1024..1536) ===== */}
         <section id="about" className="h-[512px] bg-paper">
           <div className={`${CTN}`}>
-            <div className="flex items-start justify-between gap-10 pt-[86px]">
+            <div className="flex items-start justify-between gap-10 pt-[84px]">
               <h2 className="w-[533px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
                 {settings.aboutTitle}
               </h2>
@@ -97,8 +97,8 @@ export default async function HomePage() {
               </div>
             </div>
             {/* Stats in #f3f8ff box */}
-            <div className="mt-[44px] bg-brand-soft">
-              <div className="flex justify-between px-[32px] py-[28px]">
+            <div className="mt-[64px] rounded-[16px] bg-brand-soft">
+              <div className="flex justify-around px-[32px] py-[32px]">
                 {stats.map((s) => (
                   <div key={s.label}>
                     <p className="font-sora text-[40px] font-extrabold leading-none text-brand">{s.value}</p>
@@ -115,7 +115,7 @@ export default async function HomePage() {
         <section id="products" className="h-[1024px] bg-paper">
           <div className={`${CTN}`}>
             <div className="flex flex-col items-center pt-[267px] text-center">
-              <span className="inline-flex h-[30px] items-center rounded-full bg-[#e7edf7] px-[16px] text-[14px] font-semibold uppercase tracking-[0.2em] text-brand">
+              <span className="inline-flex h-[30px] items-center rounded-full bg-[#e7edf7] px-[16px] text-[14px] font-semibold uppercase text-brand">
                 {settings.offeringsEyebrow}
               </span>
               <h2 className="mt-[24px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
@@ -128,8 +128,8 @@ export default async function HomePage() {
             <div className="mt-[32px] flex justify-between">
               {products.map((p) => (
                 <article key={p.id} className="flex h-[319px] w-[360px] flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)]">
-                  <div className="flex h-[64px] shrink-0 items-center gap-3 bg-brand px-4">
-                    <div className="flex h-[48px] w-[48px] items-center justify-center rounded-[6px] bg-paper">
+                  <div className="mx-[16px] mt-[16px] flex h-[64px] shrink-0 items-center gap-3 rounded-[6px] bg-brand px-2">
+                    <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-[6px] bg-paper">
                       {p.iconUrl && <Image src={buildAssetUrl(p.iconUrl)} alt="" width={28} height={28} className="object-contain" />}
                     </div>
                     <h3 className="text-[20px] font-bold leading-none text-paper">{p.title}</h3>
@@ -139,7 +139,7 @@ export default async function HomePage() {
                       <Tag key={i}>{t.trim()}</Tag>
                     ))}
                   </div>
-                  <p className="flex-1 overflow-hidden px-4 pt-[12px] text-[16px] leading-[1.5] text-ink-soft">
+                  <p className="flex-1 overflow-hidden px-4 pt-[12px] text-[16px] leading-[28px] text-ink-soft">
                     {p.description}
                   </p>
                   <p className="shrink-0 px-4 pb-[16px] pt-[16px] text-[16px] font-bold leading-none text-brand">Learn More</p>
@@ -153,15 +153,15 @@ export default async function HomePage() {
         {/* ===== NEWS & BLOGS (41:1550, 2560..3584) ===== */}
         <section id="news" className="h-[1024px] bg-paper">
           <div className={`${CTN}`}>
-            <h2 className="pt-[233px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
+            <h2 className="max-w-[533px] pt-[233px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">
               {settings.newsEyebrow}
             </h2>
-            <p className="mt-[73px] font-inter text-[18px] text-ink-soft">
+            <p className="mt-[4px] font-inter text-[18px] text-ink-soft">
               {settings.newsSubtitle}
             </p>
             <div className="mt-[68px] flex justify-between">
               {posts.map((p) => (
-                <Link key={p.id} href={`/blog/${p.slug}`} className="group w-[269px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
+                <Link key={p.id} href={`/blog/${p.slug}`} className="group block h-[326px] w-[269px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]">
                   <div className="relative h-[206px] w-[269px] overflow-hidden bg-[#b3b3b3]">
                     {p.imageUrl ? (
                       <Image src={buildAssetUrl(p.imageUrl)} alt={p.title} fill className="object-cover" sizes="269px" />
@@ -172,8 +172,8 @@ export default async function HomePage() {
                     )}
                   </div>
                   <div className="p-[12px]">
-                    <h3 className="text-[20px] font-bold leading-snug text-ink-soft">{p.title}</h3>
-                    <p className="line-clamp-2 text-[16px] leading-[1.4] text-ink-soft">{p.excerpt}</p>
+                    <h3 className="text-[20px] font-bold leading-[28px] text-ink-soft">{p.title}</h3>
+                    <p className="line-clamp-2 text-[16px] leading-[28px] text-ink-soft">{p.excerpt}</p>
                     <p className="mt-[4px] text-[16px] font-bold text-brand">Read More</p>
                   </div>
                 </Link>
@@ -182,7 +182,7 @@ export default async function HomePage() {
               <Link href="/blog" className="relative flex h-[326px] w-[247px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-black/5 bg-brand shadow-[0_4px_4px_rgba(0,0,0,0.04)] self-start">
                 {/* blurry blue circle bg — top-right behind text (Figma 41:1560, LAYER_BLUR 100) */}
                 <span
-                  className="absolute h-[209px] w-[209px] rounded-full bg-brand-light blur-[50px]"
+                  className="absolute h-[209px] w-[209px] rounded-full bg-brand-light opacity-30 blur-[100px]"
                   style={{ left: 1168 - 1037, top: 3077 - 3025 }}
                   aria-hidden="true"
                 />
@@ -203,17 +203,17 @@ export default async function HomePage() {
                           <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1294px" />
                         </div>
                         {/* Blurred white icon (Figma 20:1439) — relative to CTA box, right side */}
-                        <div className="absolute right-[24px] top-1/2 -translate-y-1/2 opacity-30 h-[411px] w-[411px]">
-                          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain blur-[16px]" sizes="411px" />
+                        <div className="absolute right-0 top-[-18px] opacity-30 h-[411px] w-[411px]">
+                          <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain" sizes="411px" />
                         </div>
                       </div>
                       {/* content left-aligned x188 */}
-                      <div className="relative z-10 pl-[32px]">
+                      <div className="relative z-10 pl-[32px] pt-[32px]">
                         <h2 className="max-w-[800px] text-[54px] font-extrabold leading-[1.15] text-paper">
                           {settings.ctaTitle}
                         </h2>
-                        <p className="mt-[10px] font-inter text-[18px] text-paper">{settings.ctaSubtitle}</p>
-                        <button className="mt-[18px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
+                        <p className="mt-[32px] font-inter text-[18px] text-paper">{settings.ctaSubtitle}</p>
+                        <button className="mt-[32px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand">
                           {settings.ctaButtonLabel}
                         </button>
                       </div>
@@ -223,7 +223,7 @@ export default async function HomePage() {
                 <section id="contact" className="min-h-[1024px] bg-paper">
                   <div className={`${CTN}`}>
                     <h2 className="pt-[193px] text-[54px] font-extrabold leading-[1.18] text-ink-soft">{settings.contactTitle}</h2>
-                    <div className="mt-[128px] flex justify-between pb-[60px]">
+                    <div className="mt-[64px] flex justify-between pb-[60px]">
                       {/* Left info + live Google Map (Ruko WTC Matahari Serpong) */}
                       <div className="w-[492px]">
                         <div className="space-y-[32px]">
@@ -238,7 +238,7 @@ export default async function HomePage() {
                             </div>
                           ))}
                         </div>
-                        <div className="relative mt-[40px] h-[240px] w-full overflow-hidden rounded-lg">
+                        <div className="relative mt-[40px] h-[240px] w-full overflow-hidden rounded-[12px] ring-1 ring-[#e5e7eb]">
                           <iframe
                             title="Ruko WTC Matahari Serpong"
                             src="https://maps.google.com/maps?q=Ruko%20WTC%20Matahari%20Serpong&t=&z=16&ie=UTF8&iwloc=&output=embed"
