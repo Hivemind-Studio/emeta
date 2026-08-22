@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { brandUrl } from "@/lib/brandAssets";
 
-// Nav links per the Emeta Design page (productsHref switches to /coming-soon when disabled)
+// Nav menu per user request: Home, About Us, Products, Blog.
+// Products → /#products when enabled, /coming-soon when not exists/disabled.
 const LINKS = (productsHref: string) => [
+  { href: "/", label: "Home" },
   { href: "/#about", label: "About Us" },
   { href: productsHref, label: "Products" },
-  { href: "/#services", label: "Services" },
-  { href: "/blog", label: "Blogs" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export function Header({
@@ -20,24 +21,34 @@ export function Header({
 }: {
   brandName: string;
   variant?: "dark" | "light";
-  /** When false, the Products nav item points to the Coming Soon page. */
+  /** When false/not existing, the Products nav item points to the Coming Soon page. */
   productsEnabled?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dark = variant === "dark"; // over hero (white logo, mist nav)
+
+  // Transparent at top → solid white + shadow once scrolled
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // "solid" = scrolled state or light-variant pages (blog/read) that need contrast from the start
+  const solid = scrolled || !dark;
 
   return (
     <header
-      className={
-        dark
-          ? "fixed inset-x-0 top-0 z-50"
-          : "fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-white shadow-sm"
-      }
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        solid ? "border-b border-black/5 bg-white shadow-sm backdrop-blur-sm" : "bg-transparent"
+      }`}
     >
       <div className="mx-auto flex h-[88px] w-full max-w-[1128px] items-center justify-between overflow-hidden px-6 md:px-0">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src={brandUrl(dark ? "logoWhite" : "logoBlue")}
+            src={brandUrl(solid ? "logoBlue" : dark ? "logoWhite" : "logoWhite")}
             alt={brandName}
             width={174}
             height={52}
@@ -53,7 +64,7 @@ export function Header({
               key={l.label}
               href={l.href}
               className={`font-inter text-[15px] font-medium transition-colors ${
-                dark ? "text-mist hover:text-white" : "text-[#1f2937] hover:text-brand"
+                solid ? "text-[#1f2937] hover:text-brand" : "text-mist hover:text-white"
               }`}
             >
               {l.label}
@@ -62,8 +73,8 @@ export function Header({
         </nav>
         <a
           href="/#contact"
-          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] font-inter text-[16px] font-semibold ${
-            dark ? "bg-brand text-paper hover:bg-[#1450b5]" : "bg-brand text-white hover:bg-[#1450b5]"
+          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand font-inter text-[16px] font-semibold text-paper transition-colors hover:bg-[#1450b5] ${
+            solid ? "" : "text-white"
           }`}
         >
           Get in Touch
@@ -72,7 +83,7 @@ export function Header({
         {/* Mobile menu button */}
         <button
           onClick={() => setOpen(!open)}
-          className={`lg:hidden transition-colors ${dark ? "text-white" : "text-ink"}`}
+          className={`lg:hidden transition-colors ${solid ? "text-ink" : "text-white"}`}
           aria-label={open ? "Tutup menu" : "Buka menu"}
           aria-expanded={open}
         >
@@ -90,14 +101,14 @@ export function Header({
 
       {/* Mobile menu */}
       {open && (
-        <nav className={`border-t px-6 py-4 lg:hidden ${dark ? "border-white/10 bg-black/70" : "border-black/5 bg-white"}`}>
+        <nav className="border-t border-black/5 bg-white px-6 py-4 lg:hidden">
           <ul className="flex flex-col gap-4">
             {LINKS(productsEnabled ? "/#products" : "/coming-soon").map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className={`text-base font-medium ${dark ? "text-white/80" : "text-graphite"}`}
+                  className="text-base font-medium text-graphite"
                 >
                   {l.label}
                 </Link>
