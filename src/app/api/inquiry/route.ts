@@ -71,8 +71,8 @@ export async function POST(req: Request) {
       html: `<p><b>Name:</b> ${escapeHtml(name)}</p><p><b>Email:</b> ${escapeHtml(email)}</p><hr/><p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
     });
 
-    const url = new URL(req.url);
-    return NextResponse.redirect(`${url.origin}/?inquiry=sent#contact`, 303);
+    // Fetch-based form shows inline feedback on the page — no redirect.
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[inquiry] send failed", err);
     return NextResponse.json({ ok: false, error: "Send failed" }, { status: 500 });

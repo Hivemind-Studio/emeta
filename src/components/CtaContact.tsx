@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SiteSettings } from "@/lib/data";
 import { brandUrl } from "@/lib/brandAssets";
+import { ContactForm } from "@/components/ContactForm";
 
 /**
  * CTA band ("Ready to Transform Your Business?") — Figma 20:1431.
@@ -82,24 +83,7 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
           </div>
           <div className="w-[572px] rounded-[20px] bg-brand-soft px-[40px] py-[40px]">
             <h3 className="text-[22px] font-bold text-navy-emeta">Send a Message</h3>
-            <form className="mt-[28px] space-y-[16px]" action="/api/inquiry" method="POST">
-              {(["Name", "Email", "Message"] as const).map((label) => (
-                <div key={label}>
-                  <label className="text-[14px] font-semibold text-graphite">{label}</label>
-                  {label === "Message" ? (
-                    <textarea name="message" required placeholder="Describe your requirements..." rows={3}
-                      className="mt-[8px] h-[100px] w-full rounded-[8px] border-none bg-white px-4 py-3 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                  ) : (
-                    <input type={label === "Email" ? "email" : "text"} name={label.toLowerCase()} required
-                      placeholder={label === "Name" ? "Your name" : "your@email.com"}
-                      className="mt-[8px] h-[48px] w-full rounded-[8px] border-none bg-white px-4 text-[14px] text-graphite outline-none placeholder:text-graphite" />
-                  )}
-                </div>
-              ))}
-              <button type="submit" className="inline-flex h-[48px] w-[168px] items-center justify-center rounded-[8px] bg-brand text-[16px] font-semibold text-white">
-                Submit Inquiry
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>
