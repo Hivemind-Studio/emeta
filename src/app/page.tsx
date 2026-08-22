@@ -74,11 +74,11 @@ export default async function HomePage() {
         {/* ===== ABOUT (Design 20:1403, 1024..1536) ===== */}
         <section id="about" className="bg-paper md:h-[512px]">
           <div className={`${CTN}`}>
-            <div className="flex items-start justify-between gap-10 pt-[84px]">
-              <h2 className="w-full max-w-[533px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:w-[533px] md:text-[54px]">
+            <div className="flex flex-col items-start justify-between gap-10 pt-[84px] md:flex-row md:items-start md:justify-between md:gap-10">
+              <h2 className="w-full max-w-[533px] text-[38px] font-extrabold leading-[46px] text-ink-soft md:w-[533px] md:text-[54px] md:leading-[1.18]">
                 {settings.aboutTitle}
               </h2>
-              <div className="w-[360px]">
+              <div className="w-full md:w-[360px]">
                 <p className="font-inter text-[18px] leading-[1.55] text-ink-soft">
                   {settings.aboutBody}
                 </p>
@@ -86,7 +86,7 @@ export default async function HomePage() {
             </div>
             {/* Stats in #f3f8ff box */}
             <div className="mt-[64px] rounded-[16px] bg-brand-soft">
-              <div className="flex justify-around px-[32px] py-[32px]">
+              <div className="flex flex-col items-center justify-around gap-[28px] px-[32px] py-[32px] text-center sm:flex-row sm:gap-0 sm:text-left">
                 {stats.map((s) => (
                   <div key={s.label}>
                     <p className="font-sora text-[40px] font-extrabold leading-none text-brand">{s.value}</p>
@@ -115,7 +115,7 @@ export default async function HomePage() {
             </div>
             <div className="mt-[32px] flex flex-col gap-[24px] justify-between md:flex-row">
               {products.map((p) => (
-                <Link key={p.id} href={`/products/${p.slug}`} className="group block h-[319px] w-[360px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)]">
+                <Link key={p.id} href={`/products/${p.slug}`} className="group block h-[319px] w-full overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)] md:w-[360px]">
                   <div className="mx-[16px] mt-[16px] flex h-[64px] shrink-0 items-center gap-3 rounded-[6px] bg-brand px-2">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-[6px] bg-paper">
                       {p.iconUrl && <Image src={buildAssetUrl(p.iconUrl)} alt="" width={28} height={28} className="object-contain" />}

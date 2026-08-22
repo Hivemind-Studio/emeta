@@ -183,7 +183,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Article content */}
         <article className="bg-paper pt-[21px] pb-16">
-          <div className="mx-auto min-h-[1133px] w-full max-w-[744px] px-6 md:px-0">
+          <div className="mx-auto w-full max-w-[744px] px-6 md:min-h-[1133px] md:px-0">
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-[18px] text-[14px] text-graphite">
               <Link href="/" className="hover:text-brand">Home</Link>

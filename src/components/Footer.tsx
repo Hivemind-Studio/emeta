@@ -15,7 +15,7 @@ export async function Footer({ settings }: { settings: SiteSettings }) {
   const products = await getProducts().catch(() => []);
   // Footer at 1440x1024; content column anchored at left x156.
   return (
-    <footer className="relative h-[1024px] overflow-hidden bg-brand text-white">
+    <footer className="relative overflow-hidden bg-brand text-white md:h-[1024px]">
       {/* Decorative layer — clipped to the footer box; nothing paints outside */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         {/* Blurred white Emeta icon — anchored right, sized so the visible
@@ -26,12 +26,12 @@ export async function Footer({ settings }: { settings: SiteSettings }) {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1128px] px-6 md:px-0">
-        <p className="w-full max-w-[456px] pt-[120px] text-base leading-relaxed text-white md:pt-[366px]">
+      <div className="relative z-10 mx-auto w-full max-w-[1128px] px-6 pb-[48px] pt-[56px] md:px-0 md:pb-0 md:pt-[366px]">
+        <p className="w-full max-w-[456px] text-base leading-relaxed text-white">
           Empowering businesses across Indonesia by distributing high-performance AI
           technologies and optimized cloud software.
         </p>
-        <div className="mt-[44px] flex gap-[80px]">
+        <div className="mt-[44px] grid grid-cols-2 gap-[24px] md:flex md:gap-[80px]">
           <div className="w-[180px]">
             <h4 className="text-[20px] font-semibold text-white">Company</h4>
             <ul className="mt-[15px] space-y-[8px]">
@@ -74,14 +74,14 @@ export async function Footer({ settings }: { settings: SiteSettings }) {
                 target="_blank"
                 rel="noopener"
                 aria-label={s.label}
-                className="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-white/10 text-white"
+                className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-white/10 text-white md:h-[36px] md:w-[36px]"
               >
                 <SocialIcon label={s.label} />
               </a>
             ))}
           </div>
         </div>
-        <p className="mt-[82px] text-[20px] text-white">{settings.copyright}</p>
+        <p className="mt-[40px] text-[20px] text-white md:mt-[82px]">{settings.copyright}</p>
       </div>
     </footer>
   );

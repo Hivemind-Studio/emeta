@@ -59,7 +59,7 @@ export function NewsCard({
         <h3 className="mt-[6px] line-clamp-3 text-[19px] font-bold leading-[26px] text-ink-soft">
           {post.title}
         </h3>
-        <p className="mt-[8px] line-clamp-2 text-[14px] leading-[21px] text-graphite">
+        <p className="mt-[8px] line-clamp-2 text-[14px] leading-[21px] text-graphite md:line-clamp-1">
           {post.excerpt}
         </p>
         <p className="mt-auto inline-flex items-center gap-1 text-[15px] font-bold leading-none text-brand transition-colors group-hover:text-[#1450b5]">

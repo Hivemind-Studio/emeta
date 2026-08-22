@@ -35,18 +35,18 @@ export function NewsletterForm() {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex" noValidate>
+      <form onSubmit={onSubmit} className="flex flex-col gap-[12px] sm:flex-row sm:gap-0" noValidate>
         <input
           type="email"
           placeholder="Email"
           name="email"
           aria-label="Email for newsletter"
-          className="mr-[19px] h-[48px] w-[360px] rounded-[8px] border border-[#e5e7eb] bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite"
+          className="h-[48px] w-full rounded-[8px] border border-[#e5e7eb] bg-paper px-4 font-inter text-[14px] text-ink-soft outline-none placeholder:text-graphite sm:mr-[19px] sm:w-[360px]"
         />
         <button
           type="submit"
           disabled={state === "loading"}
-          className="inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee] disabled:opacity-60"
+          className="inline-flex h-[47px] w-full items-center justify-center rounded-[8px] bg-brand-light px-6 font-inter text-[16px] font-semibold text-white transition-colors hover:bg-[#6fa8ee] disabled:opacity-60 sm:w-[154px]"
         >
           {state === "loading" ? "Sending…" : "Get in Touch"}
         </button>

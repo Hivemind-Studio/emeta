@@ -107,7 +107,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 {product.title}
               </h1>
               <p className="mt-[12px] max-w-[360px] font-inter text-[18px] leading-[28px] text-ink-soft">
-                {new Date(product.createdAt).toLocaleDateString("id-ID", {
+                {new Date(product.createdAt).toLocaleDateString("en-US", {
                   day: "numeric",
                   month: "long",
                   year: "numeric",

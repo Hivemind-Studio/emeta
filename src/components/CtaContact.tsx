@@ -18,7 +18,7 @@ export function CtaSection({ settings }: { settings: SiteSettings }) {
           {/* Decorative layer — clipped to the CTA box */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             {/* CTA blob artwork (Figma 20:1433, 1294x920) — relative to CTA box */}
-            <div className="absolute" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
+            <div className="absolute opacity-60 md:opacity-100" style={{ left: -83, top: -294, width: 1294, height: 920 }}>
               <Image src={brandUrl("ctaBg")} alt="" fill className="object-cover" sizes="1294px" />
             </div>
             {/* Blurred white icon (Figma 20:1439) — relative to CTA box, right side */}
@@ -27,14 +27,14 @@ export function CtaSection({ settings }: { settings: SiteSettings }) {
             </div>
           </div>
           {/* content left-aligned x188 */}
-          <div className="relative z-10 pl-[32px] pt-[32px]">
-            <h2 className="max-w-[800px] text-[30px] font-extrabold leading-[1.15] text-paper md:text-[54px]">
+          <div className="relative z-10 flex min-h-[280px] w-full flex-col pl-[24px] pr-[16px] pt-[32px] pb-[32px] md:min-h-[332px] md:pl-[32px] md:pr-0 md:pb-0">
+            <h2 className="max-w-[85%] text-[30px] font-extrabold leading-[1.15] text-paper md:max-w-[800px] md:text-[54px]">
               {settings.ctaTitle}
             </h2>
             <p className="mt-[32px] font-inter text-[18px] text-paper">{settings.ctaSubtitle}</p>
             <Link
               href="/?demo=1#contact"
-              className="mt-[32px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand transition-colors hover:bg-brand-soft"
+              className="mt-[24px] inline-flex h-[46px] w-[144px] items-center justify-center rounded-[8px] bg-white font-inter text-[15px] font-semibold text-brand transition-colors hover:bg-brand-soft md:mt-[32px]"
             >
               {settings.ctaButtonLabel}
             </Link>
@@ -71,7 +71,7 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
                 </div>
               ))}
             </div>
-            <div className="relative mt-[40px] h-[240px] w-full overflow-hidden rounded-[12px] ring-1 ring-[#e5e7eb]">
+            <div className="relative mt-[24px] h-[240px] w-full overflow-hidden rounded-[12px] bg-brand-soft ring-1 ring-[#e5e7eb] md:mt-[40px]">
               <iframe
                 title="Ruko WTC Matahari Serpong"
                 src="https://maps.google.com/maps?q=Ruko%20WTC%20Matahari%20Serpong&t=&z=16&ie=UTF8&iwloc=&output=embed"
