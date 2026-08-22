@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 
@@ -71,4 +72,5 @@ export async function updateSettings(formData: FormData) {
   revalidatePath("/blog");
   revalidatePath("/coming-soon");
   revalidatePath("/admin/settings");
+  redirect("/admin/settings?ok=settings-updated");
 }

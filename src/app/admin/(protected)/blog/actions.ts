@@ -29,14 +29,20 @@ export async function createPost(formData: FormData) {
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
-  const slug = await uniqueSlug(title);
 
-  await prisma.blogPost.create({
-    data: { title, slug, excerpt, content, published, featured, imageUrl },
-  });
+  if (!title) redirect("/admin/blog/new?error=post-created");
+
+  try {
+    const slug = await uniqueSlug(title);
+    await prisma.blogPost.create({
+      data: { title, slug, excerpt, content, published, featured, imageUrl },
+    });
+  } catch {
+    redirect("/admin/blog/new?error=post-created");
+  }
   revalidatePath("/blog");
   revalidatePath("/");
-  redirect("/admin/blog");
+  redirect("/admin/blog?ok=post-created");
 }
 
 export async function updatePost(formData: FormData) {
@@ -49,39 +55,43 @@ export async function updatePost(formData: FormData) {
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
 
-  const prev = await prisma.blogPost.findUnique({ where: { id } });
-  let slug = slugify(title);
-  // if changing title onto an existing slug, make it unique (excluding self)
-  if (slug) {
-    const clash = await prisma.blogPost.findFirst({ where: { slug, id: { not: id } } });
-    if (clash) slug = await uniqueSlug(title);
-    else if (!prev || prev.slug !== slug) {
-      // keep the existing slug stable unless it equals the new slug
+  try {
+    const prev = await prisma.blogPost.findUnique({ where: { id } });
+    let slug = slugify(title);
+    if (slug) {
+      const clash = await prisma.blogPost.findFirst({ where: { slug, id: { not: id } } });
+      if (clash) slug = await uniqueSlug(title);
     }
-  }
 
-  await prisma.blogPost.update({
-    where: { id },
-    data: { title, slug, excerpt, content, published, featured, imageUrl },
-  });
-  if (prev?.imageUrl && prev.imageUrl !== imageUrl) {
-    try { await deleteFile(prev.imageUrl); } catch {}
+    await prisma.blogPost.update({
+      where: { id },
+      data: { title, slug, excerpt, content, published, featured, imageUrl },
+    });
+    if (prev?.imageUrl && prev.imageUrl !== imageUrl) {
+      try { await deleteFile(prev.imageUrl); } catch {}
+    }
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${slug}`);
+    revalidatePath("/");
+  } catch {
+    redirect(`/admin/blog/${id}/edit?error=post-updated`);
   }
-  revalidatePath("/blog");
-  revalidatePath(`/blog/${slug}`);
-  revalidatePath("/");
-  redirect("/admin/blog");
+  redirect("/admin/blog?ok=post-updated");
 }
 
 export async function deletePost(formData: FormData) {
   await requireAuth();
   const id = String(formData.get("id") || "");
-  const prev = await prisma.blogPost.findUnique({ where: { id } });
-  await prisma.blogPost.delete({ where: { id } });
-  if (prev?.imageUrl) {
-    try { await deleteFile(prev.imageUrl); } catch {}
+  try {
+    const prev = await prisma.blogPost.findUnique({ where: { id } });
+    await prisma.blogPost.delete({ where: { id } });
+    if (prev?.imageUrl) {
+      try { await deleteFile(prev.imageUrl); } catch {}
+    }
+  } catch {
+    redirect("/admin/blog?error=post-deleted");
   }
   revalidatePath("/blog");
   revalidatePath("/");
-  redirect("/admin/blog");
+  redirect("/admin/blog?ok=post-deleted");
 }

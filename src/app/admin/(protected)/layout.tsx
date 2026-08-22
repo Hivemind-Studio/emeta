@@ -2,6 +2,8 @@ import Link from "next/link";
 import { logoutAction } from "../actions";
 import { requireAuth } from "@/lib/auth";
 import { getSettings } from "@/lib/data";
+import { Suspense } from "react";
+import { AdminToast } from "@/components/admin/Feedback";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   await requireAuth();
@@ -46,6 +48,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
       </nav>
       <main className="max-w-[1200px] mx-auto w-full px-6 md:px-10 py-10">{children}</main>
+      <Suspense fallback={null}>
+        <AdminToast />
+      </Suspense>
     </div>
   );
 }
