@@ -103,7 +103,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             {/* Content — right column at x748 (= 156+564+28 gap), title baseline y175 */}
             <div className="mt-[40px] w-full shrink-0 grow-0 text-[18px] leading-[28px] md:ml-[28px] md:mt-0 md:w-[520px] md:text-base">
-              <h1 className="max-w-[533px] font-sans text-[54px] font-extrabold leading-[64px] text-ink-soft">
+              <h1 className="max-w-[533px] font-sans text-[38px] font-extrabold leading-[46px] text-ink-soft md:text-[54px] md:leading-[64px]">
                 {product.title}
               </h1>
               <p className="mt-[12px] max-w-[360px] font-inter text-[18px] leading-[28px] text-ink-soft">

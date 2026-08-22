@@ -46,7 +46,7 @@ export default async function HomePage() {
       <Header brandName={settings.brandName} variant="dark" productsEnabled={settings.productsEnabled} />
       <main className="flex-1">
         {/* ===== HERO (Design 20:1383, 0..1024) ===== */}
-        <section className="relative h-[720px] overflow-hidden bg-[#fafafa] md:h-[1024px]">
+        <section className="relative h-auto min-h-[620px] overflow-hidden bg-[#fafafa] pb-[64px] md:h-[1024px] md:min-h-0 md:pb-0">
           {/* Decorative layer — everything inside is clipped by the hero box */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             {/* Background bleeds past BOTH edges proportionally (-13.2% / 126.4% = Figma -190px/1820px
@@ -143,7 +143,7 @@ export default async function HomePage() {
             <p className="mt-[4px] font-inter text-[18px] text-ink-soft">
               {settings.newsSubtitle}
             </p>
-            <div className="mt-[68px] flex flex-col gap-[24px] justify-between md:flex-row">
+            <div className="mt-[40px] flex flex-col gap-[24px] justify-between md:mt-[64px] md:flex-row">
               {posts.map((p) => (
                 <div key={p.id} className="w-[269px]">
                   <NewsCard post={p} />

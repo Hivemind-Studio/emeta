@@ -53,7 +53,7 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
   return (
     <section id="contact" className="min-h-[1024px] bg-paper">
       <div className="mx-auto w-full max-w-[1128px] md:px-0">
-        <h2 className="pt-[80px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[193px] md:text-[54px]">
+        <h2 className="pt-[56px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[193px] md:text-[54px]">
           {settings.contactTitle}
         </h2>
         <div className="mt-[64px] flex w-full max-w-[572px] flex-col justify-between gap-[40px] md:flex-row md:gap-0">

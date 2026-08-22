@@ -192,7 +192,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span className="mx-2">›</span>
               <span className="text-ink">{post.title}</span>
             </nav>
-            <h1 className="font-sans text-[32px] font-extrabold leading-[42px] text-ink-soft md:text-[54px] md:leading-[64px]">
+            <h1 className="font-sans text-[38px] font-extrabold leading-[46px] text-ink-soft md:text-[54px] md:leading-[64px]">
               {post.title}
             </h1>
             <p className="mt-[12px] font-inter text-[18px] leading-[28px] text-ink">
