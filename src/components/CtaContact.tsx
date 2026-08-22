@@ -56,7 +56,7 @@ export function ContactSection({ settings }: { settings: SiteSettings }) {
         <h2 className="pt-[56px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[193px] md:text-[54px]">
           {settings.contactTitle}
         </h2>
-        <div className="mt-[64px] flex w-full max-w-[572px] flex-col justify-between gap-[40px] md:flex-row md:gap-0">
+        <div className="mt-[64px] flex w-full flex-col justify-between gap-[40px] pb-[60px] md:flex-row md:gap-0">
           {/* Left info + live Google Map (Ruko WTC Matahari Serpong) */}
           <div className="w-full md:max-w-[492px]">
             <div className="space-y-[32px]">
