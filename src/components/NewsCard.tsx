@@ -12,7 +12,9 @@ export interface NewsCardPost {
 
 /**
  * News/blog card — shared by the blog listing page and the home
- * News & Blogs section. Branded fallback image when a post has none.
+ * News & Blogs section. Shows a real content sneak-peek: full title,
+ * multi-line excerpt, date, and Read More. Branded fallback image
+ * when a post has none.
  */
 export function NewsCard({
   post,
@@ -24,9 +26,10 @@ export function NewsCard({
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex h-[326px] flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
+      className="group flex h-[400px] flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.04)]"
     >
-      <div className="relative h-[206px] shrink-0 overflow-hidden">
+      {/* Image */}
+      <div className="relative h-[190px] shrink-0 overflow-hidden">
         {post.imageUrl ? (
           <Image
             src={buildAssetUrl(post.imageUrl)}
@@ -37,17 +40,32 @@ export function NewsCard({
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-brand">
-            <Image src="/images/og-cover.jpg" alt="" width={300} height={158} className="object-contain opacity-90" />
+            <Image src="/images/og-cover.jpg" alt="" fill className="object-cover" sizes={big ? "520px" : "264px"} />
           </div>
         )}
       </div>
-      {/* ctn per Figma: pad-left/right 12, Title y651(-639=12), desc +32, ReadMore +64 */}
-      <div className="flex min-h-0 flex-1 flex-col px-[12px] py-[12px]">
-        <h3 className={`line-clamp-2 text-[20px] font-bold leading-[26px] text-ink-soft ${big ? "" : ""}`}>
+
+      {/* Content */}
+      <div className="flex min-h-0 flex-1 flex-col px-[16px] pt-[14px] pb-[14px]">
+        <p className="text-[13px] font-medium text-graphite">
+          <time dateTime={new Date(post.createdAt).toISOString()}>
+            {new Date(post.createdAt).toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </time>
+        </p>
+        <h3 className="mt-[6px] line-clamp-3 text-[19px] font-bold leading-[26px] text-ink-soft">
           {post.title}
         </h3>
-        <p className="mt-[4px] line-clamp-1 text-[16px] leading-[28px] text-ink-soft">{post.excerpt}</p>
-        <p className="mt-auto text-[16px] font-bold leading-[28px] text-brand">Read More</p>
+        <p className="mt-[8px] line-clamp-2 text-[14px] leading-[21px] text-graphite">
+          {post.excerpt}
+        </p>
+        <p className="mt-auto inline-flex items-center gap-1 text-[15px] font-bold leading-none text-brand transition-colors group-hover:text-[#1450b5]">
+          Read More
+          <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+        </p>
       </div>
     </Link>
   );
