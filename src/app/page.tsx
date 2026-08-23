@@ -61,7 +61,8 @@ export default async function HomePage() {
               <Image src={brandUrl("iconWhite")} alt="" fill className="object-contain opacity-35 blur-[28px]" sizes="1416px" />
             </div>
           </div>
-          <div className={`${CTN} relative z-10`}>
+          {/* Mobile: content centered; Desktop (md+): left-aligned per Figma x156 */}
+          <div className={`${CTN} relative z-10 flex flex-col items-center px-6 text-center md:block md:items-start md:px-0 md:text-left`}>
               <h1 className="max-w-[533px] pt-[220px] text-[38px] font-extrabold leading-[46px] text-paper md:pt-[384px] md:text-[54px] md:leading-[64px]">
                 {settings.heroTitle}
               </h1>
