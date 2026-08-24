@@ -21,7 +21,7 @@ export const metadata = {
 };
 
 /** Content region = 1128px wide, left edge at 156px (design 1440 grid). */
-const CTN = "mx-auto w-full max-w-[1128px] md:px-0";
+const CTN = "mx-auto w-full max-w-[1128px] px-6 md:px-0";
 
 export default async function HomePage() {
   const settings = await getSettings();
@@ -62,7 +62,7 @@ export default async function HomePage() {
             </div>
           </div>
           {/* Mobile: content centered; Desktop (md+): left-aligned per Figma x156 */}
-          <div className={`${CTN} relative z-10 flex flex-col items-center px-6 text-center md:block md:items-start md:px-0 md:text-left`}>
+          <div className={`${CTN} relative z-10 flex flex-col items-center text-center md:block md:items-start md:text-left`}>
               <h1 className="max-w-[533px] pt-[220px] text-[38px] font-extrabold leading-[46px] text-paper md:pt-[384px] md:text-[54px] md:leading-[64px]">
                 {settings.heroTitle}
               </h1>
