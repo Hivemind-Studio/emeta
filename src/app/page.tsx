@@ -149,7 +149,7 @@ export default async function HomePage() {
             <p className="mt-[4px] text-center font-inter text-[18px] text-ink-soft md:text-left">
               {settings.newsSubtitle}
             </p>
-            <div className="mt-[40px] grid grid-cols-1 gap-x-[24px] gap-y-[40px] sm:grid-cols-2 md:mt-[64px] lg:grid-cols-4">
+            <div className="mt-[64px] grid grid-cols-1 gap-x-[24px] gap-y-[64px] sm:grid-cols-2 lg:grid-cols-4">
               {posts.map((p) => (
                 <div key={p.id} className="reveal">
                   <NewsCard post={p} />
