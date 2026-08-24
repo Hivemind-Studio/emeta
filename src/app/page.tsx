@@ -78,7 +78,7 @@ export default async function HomePage() {
         {/* ===== ABOUT (Design 20:1403, 1024..1536) ===== */}
         <section id="about" className="bg-paper md:h-[512px]">
           <div className={`${CTN}`}>
-            <div className="flex flex-col items-start justify-between gap-10 pt-[84px] md:flex-row md:items-start md:justify-between md:gap-10">
+            <div className="flex flex-col items-center justify-between gap-10 pt-[84px] text-center md:flex-row md:items-start md:justify-between md:gap-10 md:text-left">
               <h2 className="w-full max-w-[533px] text-[38px] font-extrabold leading-[46px] text-ink-soft md:w-[533px] md:text-[54px] md:leading-[1.18]">
                 {settings.aboutTitle}
               </h2>
@@ -143,10 +143,10 @@ export default async function HomePage() {
         {/* ===== NEWS & BLOGS (41:1550, 2560..3584) ===== */}
         <section id="news" className="bg-paper py-[100px] md:h-[1024px] md:py-0">
           <div className={`${CTN}`}>
-            <h2 className="max-w-[533px] text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[233px] md:text-[54px]">
+            <h2 className="max-w-[533px] text-center text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[233px] md:text-left md:text-[54px]">
               {settings.newsEyebrow}
             </h2>
-            <p className="mt-[4px] font-inter text-[18px] text-ink-soft">
+            <p className="mt-[4px] text-center font-inter text-[18px] text-ink-soft md:text-left">
               {settings.newsSubtitle}
             </p>
             <div className="mt-[40px] grid grid-cols-1 gap-x-[24px] gap-y-[40px] sm:grid-cols-2 md:mt-[64px] lg:grid-cols-4">

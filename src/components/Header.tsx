@@ -71,9 +71,10 @@ export function Header({
             </Link>
           ))}
         </nav>
+        {/* Hidden on mobile top bar per request — still reachable via the burger menu below */}
         <Link
           href="/#contact"
-          className={`inline-flex h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand font-inter text-[16px] font-semibold text-paper transition-colors hover:bg-[#1450b5] ${
+          className={`hidden h-[47px] w-[154px] items-center justify-center rounded-[8px] bg-brand font-inter text-[16px] font-semibold text-paper transition-colors hover:bg-[#1450b5] lg:inline-flex ${
             solid ? "" : "text-white"
           }`}
         >
