@@ -120,15 +120,17 @@ export default async function HomePage() {
             <div className="reveal-stagger mt-[32px] grid flex-col gap-[24px] justify-between sm:grid-cols-2 md:flex md:flex-row lg:w-auto">
               {products.map((p) => (
                 <div key={p.id} className="reveal">
-                <Link key={p.id} href={`/products/${p.slug}`} className="group block h-[319px] w-full overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)] md:w-[360px]">
+                <Link key={p.id} href={`/products/${p.slug}`} className="group flex h-[319px] w-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.08)] md:w-[360px]">
                   <div className="mx-[16px] mt-[16px] flex h-[64px] shrink-0 items-center gap-3 rounded-[6px] bg-brand px-2">
                     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-[6px] bg-paper">
                       {p.iconUrl && <Image src={buildAssetUrl(p.iconUrl)} alt="" width={28} height={28} className="object-contain" />}
                     </div>
-                    <h3 className="text-[20px] font-bold leading-none text-paper">{p.title}</h3>
+                    <h3 className="line-clamp-2 text-[20px] font-bold leading-[24px] text-paper">{p.title}</h3>
                   </div>
                   <ProductTags tags={p.tags} className="shrink-0 px-4 pt-[20px]" />
-                  <p className="flex-1 overflow-hidden px-4 pt-[12px] text-[16px] leading-[28px] text-ink-soft">
+                  {/* Clamped to what the 319px card can show — 4 lines x 28px is the
+                      space left under the header + tags, above the Learn More row */}
+                  <p className="line-clamp-4 min-h-0 flex-1 px-4 pt-[12px] text-[16px] leading-[28px] text-ink-soft">
                     {p.description}
                   </p>
                   <p className="shrink-0 px-4 pb-[16px] pt-[16px] text-[16px] font-bold leading-none text-brand">Learn More</p>
