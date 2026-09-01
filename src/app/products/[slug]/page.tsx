@@ -51,6 +51,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   if (!product || !settings.productsEnabled) notFound();
 
   const paragraphs = product.description.split(/\n+/).filter(Boolean);
+  // Detail image is its own upload; older products that only have a card icon fall back to it
+  const heroImage = product.imageUrl || product.iconUrl;
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -60,7 +62,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     url: `${SITE_URL}/products/${product.slug}`,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    image: product.iconUrl ? new URL(buildAssetUrl(product.iconUrl), SITE_URL).href : undefined,
+    image: heroImage ? new URL(buildAssetUrl(heroImage), SITE_URL).href : undefined,
     brand: { "@type": "Brand", name: settings.brandName },
   };
   const breadcrumbLd = {
@@ -85,9 +87,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <div className="mx-auto flex w-full max-w-[1128px] flex-col items-start pb-[87px] pt-[64px] md:flex-row md:items-stretch md:pb-[87px] md:pt-[159px] md:px-0">
             {/* Pic — left, 564x546, square corners per design */}
             <div className="relative aspect-[564/546] w-full shrink-0 overflow-hidden bg-brand md:aspect-auto md:h-[546px] md:w-[564px]">
-              {product.iconUrl ? (
+              {heroImage ? (
                 <Image
-                  src={buildAssetUrl(product.iconUrl)}
+                  src={buildAssetUrl(heroImage)}
                   alt={product.title}
                   fill
                   priority

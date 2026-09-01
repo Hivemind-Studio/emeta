@@ -26,7 +26,10 @@ export function ProductCreateForm() {
           className="w-full rounded-lg border border-line bg-white px-4 py-3 outline-none focus:border-brand" />
       </div>
       <div className="sm:col-span-2">
-        <ImageUploader name="iconUrl" label="Icon Produk (opsional)" />
+        <ImageUploader name="iconUrl" label="Icon Produk — kartu di beranda (opsional)" />
+      </div>
+      <div className="sm:col-span-2">
+        <ImageUploader name="imageUrl" label="Gambar Detail Produk — halaman produk (opsional)" />
       </div>
       <Field name="learnMoreUrl" label="Learn More URL (opsional)" placeholder="https://…" />
       <Field name="sortOrder" label="Urutan (0,1,2...)" placeholder="0" />

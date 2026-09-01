@@ -24,6 +24,7 @@ export async function createProduct(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
+  const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
   const sortOrder = Number(formData.get("sortOrder")) || 0;
 
   if (!title) redirect("/admin/products?error=product-created");
@@ -34,7 +35,7 @@ export async function createProduct(formData: FormData) {
 
   try {
     await prisma.product.create({
-      data: { title, slug, tags, description, learnMoreUrl, iconUrl, sortOrder },
+      data: { title, slug, tags, description, learnMoreUrl, iconUrl, imageUrl, sortOrder },
     });
   } catch {
     redirect("/admin/products?error=product-created");
@@ -51,6 +52,7 @@ export async function updateProduct(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
+  const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
   const sortOrder = Number(formData.get("sortOrder")) || 0;
 
   const requested = String(formData.get("slug") || "").trim() || title;
@@ -60,10 +62,15 @@ export async function updateProduct(formData: FormData) {
     const prev = await prisma.product.findUnique({ where: { id } });
     await prisma.product.update({
       where: { id },
-      data: { title, slug, tags, description, learnMoreUrl, iconUrl, sortOrder },
+      data: { title, slug, tags, description, learnMoreUrl, iconUrl, imageUrl, sortOrder },
     });
-    if (prev?.iconUrl && prev.iconUrl !== iconUrl) {
-      try { await deleteFile(prev.iconUrl); } catch {}
+    // Drop replaced assets — but never one the product still points at (icon and
+    // detail image can share a key, e.g. after copying one field into the other)
+    const kept = [iconUrl, imageUrl];
+    for (const before of new Set([prev?.iconUrl, prev?.imageUrl])) {
+      if (before && !kept.includes(before)) {
+        try { await deleteFile(before); } catch {}
+      }
     }
   } catch {
     redirect("/admin/products?error=product-updated");
@@ -78,8 +85,10 @@ export async function deleteProduct(formData: FormData) {
   try {
     const prev = await prisma.product.findUnique({ where: { id } });
     await prisma.product.delete({ where: { id } });
-    if (prev?.iconUrl) {
-      try { await deleteFile(prev.iconUrl); } catch {}
+    for (const key of new Set([prev?.iconUrl, prev?.imageUrl])) {
+      if (key) {
+        try { await deleteFile(key); } catch {}
+      }
     }
   } catch {
     redirect("/admin/products?error=product-deleted");

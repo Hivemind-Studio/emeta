@@ -14,7 +14,7 @@ function Field({ name, label, defaultValue, placeholder }: { name: string; label
   );
 }
 
-export function Updater({ p }: { p: { id: string; title: string; slug: string; tags: string; description: string; iconUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
+export function Updater({ p }: { p: { id: string; title: string; slug: string; tags: string; description: string; iconUrl: string | null; imageUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
   return (
     <form action={updateProduct} className="rounded-xl border border-line-soft bg-white p-5">
       <input type="hidden" name="id" value={p.id} />
@@ -29,8 +29,11 @@ export function Updater({ p }: { p: { id: string; title: string; slug: string; t
           <textarea name="description" rows={2} defaultValue={p.description}
             className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" />
         </div>
-        <div className="sm:col-span-2 lg:col-span-4">
-          <ImageUploader name="iconUrl" label="Icon Produk" defaultValue={p.iconUrl} />
+        <div className="sm:col-span-2 lg:col-span-2">
+          <ImageUploader name="iconUrl" label="Icon Produk (kartu di beranda)" defaultValue={p.iconUrl} />
+        </div>
+        <div className="sm:col-span-2 lg:col-span-2">
+          <ImageUploader name="imageUrl" label="Gambar Detail Produk" defaultValue={p.imageUrl} />
         </div>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-3">

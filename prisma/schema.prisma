@@ -64,7 +64,8 @@ model Product {
   slug      String  @unique
   tags      String  @default("") // comma-separated short tags e.g. "Data,AI,For Business"
   description String
-  iconUrl   String? // icon image key (CDN)
+  iconUrl   String? // small card icon image key (CDN)
+  imageUrl  String? // large detail-page image key (CDN); falls back to iconUrl
   learnMoreUrl String @default("")
   sortOrder Int     @default(0)
   createdAt DateTime @default(now())
