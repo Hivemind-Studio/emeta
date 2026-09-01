@@ -11,7 +11,7 @@ import type { StorageDriver, SaveInput, SaveResult } from "./types";
 
 /**
  * Cloudflare R2 driver (S3-compatible). Objects stored under a KEY_PREFIX
- * ("everest-electronics/") inside the shared "denova" bucket. The DB stores the
+ * ("emeta/") inside the dedicated "emeta" bucket. The DB stores the
  * PREFIX-FREE relative key; the prefix + bucket + public URL are driver concerns.
  */
 export class R2StorageDriver implements StorageDriver {

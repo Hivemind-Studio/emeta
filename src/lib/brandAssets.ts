@@ -2,9 +2,9 @@ import { buildAssetUrl } from "@/lib/storage/url";
 
 /**
  * Figma-exported brand assets, hosted on the R2 CDN under the emeta prefix
- * (cdn.denovamind.com/emeta). Keys returned by the upload-assets script (HD
+ * (cdn.emeta.co.id/emeta). Keys returned by the upload-assets script (HD
  * 4x exports). Using the CDN (buildAssetUrl) guarantees these are the EXACT
- * Figma assets and served from cdn.denovamind.com/emeta, never a local
+ * Figma assets and served from cdn.emeta.co.id/emeta, never a local
  * substitute.
  */
 export const BRAND_ASSETS: Record<string, string> = {

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["sharp"],
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "cdn.denovamind.com" }],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.emeta.co.id" }],
   },
 };
 
