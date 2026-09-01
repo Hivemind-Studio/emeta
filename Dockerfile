@@ -1,16 +1,20 @@
-FROM node:22-alpine AS deps
+# Base image comes from AWS ECR Public (an official mirror of the Docker Hub
+# library images) rather than docker.io: Zeabur builders share source IPs and
+# were hitting Docker Hub anonymous pull limits ("429 Too Many Requests" on
+# node:22-alpine), which failed builds before any project code was copied in.
+FROM public.ecr.aws/docker/library/node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-FROM node:22-alpine AS builder
+FROM public.ecr.aws/docker/library/node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-FROM node:22-alpine AS runner
+FROM public.ecr.aws/docker/library/node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
