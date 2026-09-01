@@ -3,6 +3,7 @@
 import type { BlogPost } from "@/generated/prisma/client";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 export function PostForm({
   action,
@@ -63,13 +64,7 @@ export function PostForm({
         </Field>
 
         <Field label="Isi Artikel" htmlFor="content">
-          <textarea
-            id="content"
-            name="content"
-            rows={12}
-            defaultValue={post?.content}
-            className="w-full resize-y rounded-lg border border-line bg-white px-4 py-3 font-mono text-sm leading-relaxed outline-none focus:border-navy"
-          />
+          <RichTextEditor name="content" defaultValue={post?.content ?? ""} minHeight={320} />
         </Field>
       </div>
 

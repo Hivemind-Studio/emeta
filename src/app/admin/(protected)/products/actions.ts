@@ -22,7 +22,7 @@ export async function createProduct(formData: FormData) {
   const title = String(formData.get("title") || "").trim();
   const tags = String(formData.get("tags") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const content = String(formData.get("content") || "").trim();
+  const content = String(formData.get("content") || "").replace(/\r\n?/g, "\n").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
@@ -51,7 +51,7 @@ export async function updateProduct(formData: FormData) {
   const title = String(formData.get("title") || "").trim();
   const tags = String(formData.get("tags") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const content = String(formData.get("content") || "").trim();
+  const content = String(formData.get("content") || "").replace(/\r\n?/g, "\n").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;

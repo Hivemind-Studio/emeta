@@ -28,7 +28,9 @@ export function ArticleBody({
   /** wrapper spacing — pages differ (blog mt-8, product detail mt-[42px]) */
   className?: string;
 }) {
-  const blocks = content.split(/\n{2,}/).map((b) => b.trim()).filter(Boolean);
+  // Browser textareas submit CRLF, and \r\n\r\n does not match /\n{2,}/ — without
+  // this every such body collapsed into a single paragraph.
+  const blocks = content.replace(/\r\n?/g, "\n").split(/\n{2,}/).map((b) => b.trim()).filter(Boolean);
   return (
     <div className={className}>
       {blocks.map((block, bi) => {

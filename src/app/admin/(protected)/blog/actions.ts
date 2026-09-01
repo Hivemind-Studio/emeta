@@ -25,7 +25,7 @@ export async function createPost(formData: FormData) {
   await requireAuth();
   const title = String(formData.get("title") || "").trim();
   const excerpt = String(formData.get("excerpt") || "").trim();
-  const content = String(formData.get("content") || "");
+  const content = String(formData.get("content") || "").replace(/\r\n?/g, "\n");
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
@@ -51,7 +51,7 @@ export async function updatePost(formData: FormData) {
   const id = String(formData.get("id") || "");
   const title = String(formData.get("title") || "").trim();
   const excerpt = String(formData.get("excerpt") || "").trim();
-  const content = String(formData.get("content") || "");
+  const content = String(formData.get("content") || "").replace(/\r\n?/g, "\n");
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;

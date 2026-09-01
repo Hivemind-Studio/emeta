@@ -3,6 +3,7 @@
 import { createProduct } from "./actions";
 import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 import { ImageUploader } from "@/components/admin/ImageUploader";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 function Field({ name, label, placeholder }: { name: string; label: string; placeholder?: string }) {
   return (
@@ -27,11 +28,8 @@ export function ProductCreateForm() {
       </div>
       <div className="sm:col-span-2">
         <label className="mb-2 block text-sm font-semibold text-ink-soft">Deskripsi Detail — tampil di halaman produk (opsional)</label>
-        <textarea name="content" rows={8} placeholder={"## Fitur Utama\n\n- Poin pertama\n- Poin kedua\n\nParagraf penjelasan dengan **teks tebal**."}
-          className="w-full rounded-lg border border-line bg-white px-4 py-3 font-mono text-sm outline-none focus:border-brand" />
-        <p className="mt-1 text-xs text-mist">
-          Format: <code>## Judul</code>, <code>### Sub-judul</code>, <code>- daftar</code>, <code>**tebal**</code>, <code>*miring*</code>. Kosongkan untuk memakai deskripsi singkat.
-        </p>
+        <RichTextEditor name="content" minHeight={220} />
+        <p className="mt-1 text-xs text-mist">Kosongkan untuk memakai excerpt.</p>
       </div>
       <div className="sm:col-span-2">
         <ImageUploader name="iconUrl" label="Icon Produk — kartu di beranda (opsional)" />
