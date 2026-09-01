@@ -14,7 +14,7 @@ function Field({ name, label, defaultValue, placeholder }: { name: string; label
   );
 }
 
-export function Updater({ p }: { p: { id: string; title: string; slug: string; tags: string; description: string; iconUrl: string | null; imageUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
+export function Updater({ p }: { p: { id: string; title: string; slug: string; tags: string; description: string; content: string; iconUrl: string | null; imageUrl: string | null; learnMoreUrl?: string | null; sortOrder: number } }) {
   return (
     <form action={updateProduct} className="rounded-xl border border-line-soft bg-white p-5">
       <input type="hidden" name="id" value={p.id} />
@@ -25,9 +25,17 @@ export function Updater({ p }: { p: { id: string; title: string; slug: string; t
         <Field name="learnMoreUrl" label="Learn More URL" defaultValue={p.learnMoreUrl ?? ""} placeholder="https://…" />
         <Field name="sortOrder" label="Urutan" defaultValue={String(p.sortOrder)} placeholder="0" />
         <div className="sm:col-span-2 lg:col-span-4">
-          <label className="mb-1 block text-xs font-semibold text-graphite">Deskripsi</label>
+          <label className="mb-1 block text-xs font-semibold text-graphite">Deskripsi Singkat (kartu &amp; hasil pencarian)</label>
           <textarea name="description" rows={2} defaultValue={p.description}
             className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" />
+        </div>
+        <div className="sm:col-span-2 lg:col-span-4">
+          <label className="mb-1 block text-xs font-semibold text-graphite">Isi Halaman Produk</label>
+          <textarea name="content" rows={8} defaultValue={p.content}
+            className="w-full rounded-md border border-line bg-white px-3 py-2 font-mono text-sm outline-none focus:border-brand" />
+          <p className="mt-1 text-xs text-mist">
+            Format: <code>## Judul</code>, <code>### Sub-judul</code>, <code>- daftar</code>, <code>**tebal**</code>, <code>*miring*</code>. Baris kosong memisahkan paragraf. Kosongkan untuk memakai deskripsi singkat.
+          </p>
         </div>
         <div className="sm:col-span-2 lg:col-span-2">
           <ImageUploader name="iconUrl" label="Icon Produk (kartu di beranda)" defaultValue={p.iconUrl} />

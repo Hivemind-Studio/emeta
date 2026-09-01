@@ -22,6 +22,7 @@ export async function createProduct(formData: FormData) {
   const title = String(formData.get("title") || "").trim();
   const tags = String(formData.get("tags") || "").trim();
   const description = String(formData.get("description") || "").trim();
+  const content = String(formData.get("content") || "").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
@@ -35,7 +36,7 @@ export async function createProduct(formData: FormData) {
 
   try {
     await prisma.product.create({
-      data: { title, slug, tags, description, learnMoreUrl, iconUrl, imageUrl, sortOrder },
+      data: { title, slug, tags, description, content, learnMoreUrl, iconUrl, imageUrl, sortOrder },
     });
   } catch {
     redirect("/admin/products?error=product-created");
@@ -50,6 +51,7 @@ export async function updateProduct(formData: FormData) {
   const title = String(formData.get("title") || "").trim();
   const tags = String(formData.get("tags") || "").trim();
   const description = String(formData.get("description") || "").trim();
+  const content = String(formData.get("content") || "").trim();
   const learnMoreUrl = String(formData.get("learnMoreUrl") || "").trim();
   const iconUrl = String(formData.get("iconUrl") || "").trim() || null;
   const imageUrl = String(formData.get("imageUrl") || "").trim() || null;
@@ -62,7 +64,7 @@ export async function updateProduct(formData: FormData) {
     const prev = await prisma.product.findUnique({ where: { id } });
     await prisma.product.update({
       where: { id },
-      data: { title, slug, tags, description, learnMoreUrl, iconUrl, imageUrl, sortOrder },
+      data: { title, slug, tags, description, content, learnMoreUrl, iconUrl, imageUrl, sortOrder },
     });
     // Drop replaced assets — but never one the product still points at (icon and
     // detail image can share a key, e.g. after copying one field into the other)

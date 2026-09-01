@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CtaSection, ContactSection } from "@/components/CtaContact";
 import { ProductTags } from "@/components/ProductTags";
+import { ArticleBody } from "@/components/ArticleBody";
 import { getSettings, getProductBySlug } from "@/lib/data";
 import { buildAssetUrl } from "@/lib/storage/url";
 
@@ -50,7 +51,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const [settings, product] = await Promise.all([getSettings(), getProductBySlug(slug)]);
   if (!product || !settings.productsEnabled) notFound();
 
-  const paragraphs = product.description.split(/\n+/).filter(Boolean);
+  // Body is the rich `content` field; products written before it existed fall
+  // back to their plain description, so they render exactly as they used to
+  const body = product.content.trim() || product.description;
   // Detail image is its own upload; older products that only have a card icon fall back to it
   const heroImage = product.imageUrl || product.iconUrl;
 
@@ -116,13 +119,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 })}
               </p>
               <ProductTags tags={product.tags} className="mt-[12px]" />
-              <div className="mt-[42px]">
-                {paragraphs.map((p, i) => (
-                  <p key={i} className="text-[18px] leading-[28px] text-ink-soft [&:not(:first-child)]:mt-[28px]">
-                    {p}
-                  </p>
-                ))}
-              </div>
+              <ArticleBody content={body} className="mt-[42px] space-y-5" />
             </div>
           </div>
         </section>
