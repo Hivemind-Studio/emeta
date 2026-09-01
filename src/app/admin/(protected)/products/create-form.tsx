@@ -21,12 +21,12 @@ export function ProductCreateForm() {
       <Field name="slug" label="Slug URL (opsional)" placeholder="wrenai — kosongkan untuk otomatis" />
       <Field name="tags" label="Tags (koma-pisah)" placeholder="Data, AI, For Business" />
       <div className="sm:col-span-2">
-        <label className="mb-2 block text-sm font-semibold text-ink-soft">Deskripsi Singkat (kartu &amp; hasil pencarian)</label>
+        <label className="mb-2 block text-sm font-semibold text-ink-soft">Excerpt — tampil di kartu beranda &amp; hasil pencarian</label>
         <textarea name="description" rows={3} placeholder="Ringkasan singkat produk..."
           className="w-full rounded-lg border border-line bg-white px-4 py-3 outline-none focus:border-brand" />
       </div>
       <div className="sm:col-span-2">
-        <label className="mb-2 block text-sm font-semibold text-ink-soft">Isi Halaman Produk (opsional)</label>
+        <label className="mb-2 block text-sm font-semibold text-ink-soft">Deskripsi Detail — tampil di halaman produk (opsional)</label>
         <textarea name="content" rows={8} placeholder={"## Fitur Utama\n\n- Poin pertama\n- Poin kedua\n\nParagraf penjelasan dengan **teks tebal**."}
           className="w-full rounded-lg border border-line bg-white px-4 py-3 font-mono text-sm outline-none focus:border-brand" />
         <p className="mt-1 text-xs text-mist">

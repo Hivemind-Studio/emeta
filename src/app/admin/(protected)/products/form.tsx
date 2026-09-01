@@ -25,12 +25,12 @@ export function Updater({ p }: { p: { id: string; title: string; slug: string; t
         <Field name="learnMoreUrl" label="Learn More URL" defaultValue={p.learnMoreUrl ?? ""} placeholder="https://…" />
         <Field name="sortOrder" label="Urutan" defaultValue={String(p.sortOrder)} placeholder="0" />
         <div className="sm:col-span-2 lg:col-span-4">
-          <label className="mb-1 block text-xs font-semibold text-graphite">Deskripsi Singkat (kartu &amp; hasil pencarian)</label>
+          <label className="mb-1 block text-xs font-semibold text-graphite">Excerpt — tampil di kartu beranda &amp; hasil pencarian</label>
           <textarea name="description" rows={2} defaultValue={p.description}
             className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm outline-none focus:border-brand" />
         </div>
         <div className="sm:col-span-2 lg:col-span-4">
-          <label className="mb-1 block text-xs font-semibold text-graphite">Isi Halaman Produk</label>
+          <label className="mb-1 block text-xs font-semibold text-graphite">Deskripsi Detail — tampil di halaman produk</label>
           <textarea name="content" rows={8} defaultValue={p.content}
             className="w-full rounded-md border border-line bg-white px-3 py-2 font-mono text-sm outline-none focus:border-brand" />
           <p className="mt-1 text-xs text-mist">
