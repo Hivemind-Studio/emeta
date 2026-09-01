@@ -57,7 +57,8 @@ export function CtaSection({ settings }: { settings: SiteSettings }) {
 export function ContactSection({ settings }: { settings: SiteSettings }) {
   return (
     <section id="contact" className="min-h-[1024px] bg-paper">
-      <div className="mx-auto w-full max-w-[1128px] md:px-0">
+      {/* px-6 on mobile matches the homepage CTN gutter; desktop unchanged */}
+      <div className="mx-auto w-full max-w-[1128px] px-6 md:px-0">
         <h2 className="pt-[56px] text-center text-[34px] font-extrabold leading-[1.18] text-ink-soft md:pt-[193px] md:text-left md:text-[54px]">
           {settings.contactTitle}
         </h2>
