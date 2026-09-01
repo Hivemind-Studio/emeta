@@ -13,6 +13,8 @@ export const CDN_KEY_PREFIX = (process.env.NEXT_PUBLIC_CDN_KEY_PREFIX || "").rep
  */
 export function buildAssetUrl(key: string | null | undefined): string {
   if (!key) return "";
+  // ImageUploader also accepts a pasted external URL — pass those through
+  if (/^https?:\/\//i.test(key)) return key;
   if (CDN_BASE_URL) {
     return `${CDN_BASE_URL}/${CDN_KEY_PREFIX ? `${CDN_KEY_PREFIX}/` : ""}${key}`;
   }

@@ -20,6 +20,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const shortDesc = product.description.length > 155
     ? product.description.slice(0, 150).replace(/\s+\S*$/, "") + "…"
     : product.description;
+  // Share the product's own picture, not the generic site cover — falls back to
+  // the card icon, then the cover, so there is always an image
+  const socialKey = product.imageUrl || product.iconUrl;
+  const socialImage = socialKey
+    ? new URL(buildAssetUrl(socialKey), SITE_URL).href
+    : `${SITE_URL}/images/og-cover.jpg`;
+
   return {
     // Root layout template appends "| Emeta"
     title: product.title,
@@ -30,13 +37,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `${SITE_URL}/products/${product.slug}`,
       title: product.title,
       description: shortDesc,
-      images: [{ url: `${SITE_URL}/images/og-cover.jpg`, width: 1200, height: 630, alt: product.title }],
+      images: [{ url: socialImage, alt: product.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: product.title,
       description: shortDesc,
-      images: [`${SITE_URL}/images/og-cover.jpg`],
+      images: [socialImage],
     },
   };
 }
@@ -66,6 +73,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     image: heroImage ? new URL(buildAssetUrl(heroImage), SITE_URL).href : undefined,
+    datePublished: product.createdAt.toISOString(),
+    dateModified: product.updatedAt.toISOString(),
     brand: { "@type": "Brand", name: settings.brandName },
   };
   const breadcrumbLd = {
@@ -112,11 +121,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 {product.title}
               </h1>
               <p className="mt-[12px] max-w-[360px] font-inter text-[18px] leading-[28px] text-ink-soft">
-                {new Date(product.createdAt).toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
+                <time dateTime={product.createdAt.toISOString()}>
+                  {new Date(product.createdAt).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </time>
               </p>
               <ProductTags tags={product.tags} className="mt-[12px]" />
               <ArticleBody content={body} className="mt-[42px] space-y-5" />
