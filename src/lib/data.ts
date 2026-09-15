@@ -1,9 +1,10 @@
 import { prisma } from "./db";
-import type { GlobalSettings, Product, BlogPost } from "@/generated/prisma/client";
+import type { GlobalSettings, Product, BlogPost, NewsletterSubscriber } from "@/generated/prisma/client";
 
 export type SiteSettings = GlobalSettings;
 export type ProductItem = Product;
 export type BlogItem = BlogPost;
+export type SubscriberItem = NewsletterSubscriber;
 
 /** Fetch the singleton global settings. */
 export async function getSettings(): Promise<SiteSettings> {
@@ -91,4 +92,24 @@ export async function getPostIdBySlugAlias(slug: string): Promise<string | null>
     select: { slug: true, published: true },
   });
   return post?.published ? post.slug : null;
+}
+
+/**
+ * Paginated newsletter subscribers, newest first.
+ * Used by the admin-only subscriber list view.
+ */
+export async function getSubscribersPage(
+  page: number,
+  pageSize = 25,
+): Promise<{ items: SubscriberItem[]; total: number; totalPages: number; page: number }> {
+  const [items, total] = await Promise.all([
+    prisma.newsletterSubscriber.findMany({
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.newsletterSubscriber.count(),
+  ]);
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  return { items, total, totalPages, page };
 }

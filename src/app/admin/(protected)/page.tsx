@@ -4,14 +4,16 @@ import { prisma } from "@/lib/db";
 export const metadata = { title: "Dashboard | PT Emeta Teknologi Indonesia" };
 
 export default async function AdminDashboard() {
-  const [products, posts] = await Promise.all([
+  const [products, posts, subscribers] = await Promise.all([
     prisma.product.count(),
     prisma.blogPost.count(),
+    prisma.newsletterSubscriber.count(),
   ]);
 
   const stats = [
     { label: "Produk", value: products, href: "/admin/products" },
     { label: "Artikel", value: posts, href: "/admin/blog" },
+    { label: "Subscribers", value: subscribers, href: "/admin/subscribers" },
   ];
 
   return (
