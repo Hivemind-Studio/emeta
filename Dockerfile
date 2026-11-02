@@ -11,6 +11,11 @@ FROM public.ecr.aws/docker/library/node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Inlined into client bundles / static routes at build time (Zeabur injects these itself;
+# the self-hosted compose build passes them as build args).
+ARG NEXT_PUBLIC_CDN_URL
+ARG NEXT_PUBLIC_CDN_KEY_PREFIX
+ARG SITE_URL
 RUN npx prisma generate
 RUN npm run build
 

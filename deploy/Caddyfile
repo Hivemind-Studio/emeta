@@ -1,0 +1,13 @@
+# Cloudflare proxies emeta.co.id in front of this server, so serve both:
+#  - plain HTTP for any host (Cloudflare SSL mode "Flexible"), with no redirect to avoid a loop
+#  - HTTPS with Caddy's own internal cert (Cloudflare SSL mode "Full")
+# shortcut: "Full (strict)" needs a Cloudflare Origin Certificate here instead of `tls internal`.
+# Keep the server IP out of this file: the repo is public and Cloudflare hides the origin IP.
+http:// {
+	reverse_proxy app:3000
+}
+
+https://emeta.co.id, https://www.emeta.co.id {
+	tls internal
+	reverse_proxy app:3000
+}
